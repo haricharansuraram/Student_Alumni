@@ -1,0 +1,59 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.student-navbar {
+  background-color: #1e293b;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.student-navbar-brand h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  text-align: center;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1e293b;
+  color: white;
+  padding: 0.75rem 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-btn {
+  background: none;
+  border: none;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.footer-btn svg {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.footer-btn:hover {
+  color: #60a5fa;
+}

@@ -1,0 +1,14 @@
+.profile-container {
+  max-width: 600px;
+  margin: 4rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.profile-container h2 {
+  margin-bottom: 1rem;
+  color: #111827;
+  font-weight: 700;
+}

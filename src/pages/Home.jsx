@@ -1,0 +1,36 @@
+// src/pages/Home.jsx
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Home.css';
+
+const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="home-wrapper">
+      <div className="home-container">
+        <h1>Welcome to Student-Alumni Connect</h1>
+        <p className="intro">
+          A platform that bridges students, alumni, and admin — for collaboration, mentorship, and professional growth.
+        </p>
+
+        <div className="features">
+          <h2>🔍 Key Features</h2>
+          <ul>
+            <li><strong>Role-based access:</strong> Students, Alumni, and Admin dashboards</li>
+            <li><strong>Profile creation & editing:</strong> Add your bio, education, and skillset</li>
+            <li><strong>Social links:</strong> Showcase your LinkedIn and GitHub profiles</li>
+            <li><strong>Secure authentication:</strong> Login/Register with password protection</li>
+          </ul>
+        </div>
+
+        {/* <div className="home-buttons">
+          <button onClick={() => navigate('/login')}>Login</button>
+          <button onClick={() => navigate('/register')}>Sign Up</button>
+        </div> */}
+      </div>
+    </div>
+  );
+};
+
+export default Home;

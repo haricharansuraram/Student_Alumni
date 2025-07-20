@@ -1,0 +1,49 @@
+.profile-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.profile-card {
+  width: 250px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.connect-btn,
+.message-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.connect-btn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.message-btn {
+  background-color: #f97316;
+  color: white;
+}

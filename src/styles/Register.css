@@ -1,0 +1,18 @@
+.register-form {
+  max-width: 480px;
+  margin: 3rem auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.register-form h2 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.register-form .form-group {
+  margin-bottom: 1rem;
+}

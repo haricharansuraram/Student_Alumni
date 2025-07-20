@@ -1,0 +1,57 @@
+.alumni-card {
+  width: 260px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.alumni-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+/* Make the buttons appear side by side and centered */
+.alumni-card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.connect-btn,
+.message-btn {
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.connect-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.connect-btn:hover {
+  background-color: #125ea2;
+}
+
+.message-btn {
+  background-color: white;
+  color: #1976d2;
+  border: 1.5px solid #1976d2;
+}
+
+.message-btn:hover {
+  background-color: #e3f0fc;
+}
