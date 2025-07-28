@@ -24,10 +24,10 @@ const Home = () => {
           </ul>
         </div>
 
-        {/* <div className="home-buttons">
-          <button onClick={() => navigate('/login')}>Login</button>
-          <button onClick={() => navigate('/register')}>Sign Up</button>
-        </div> */}
+        <div className="home-buttons">
+          <button onClick={() => navigate('/select-role')}>Login</button>
+          <button onClick={() => navigate('/signup')}>Sign Up</button>
+        </div>
       </div>
     </div>
   );

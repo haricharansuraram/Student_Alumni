@@ -6,6 +6,7 @@ import RoleSelector from './pages/RoleSelector';
 import StudentLogin from './pages/StudentLogin';
 import AlumniLogin from './pages/AlumniLogin';
 import AdminLogin from './pages/AdminLogin';
+import SignUp from './pages/SignUp';
 import AlumniDirectory from './pages/AlumniDirectory';
 import StudentDashboard from './pages/StudentDashboard';
 import AlumniPage from './pages/AlumniPage';
@@ -21,6 +22,7 @@ function App() {
       {/* Public routes */}
       <Route path="/" element={<Home />} />
       <Route path="/select-role" element={<RoleSelector />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/login/student" element={<StudentLogin />} />
       <Route path="/login/alumni" element={<AlumniLogin />} />
       <Route path="/login/admin" element={<AdminLogin />} />
