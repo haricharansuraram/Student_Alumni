@@ -17,13 +17,12 @@
 
 .navbar-links {
   display: flex;
-  gap: 1rem;
+  gap: 1rem; /* Spacing between login and sign up buttons */
 }
 
 /* Common button styles */
 .nav-button {
   font-size: 16px;
-  display: flex;
   font-weight: 500;
   padding: 0.5rem 1.2rem;
   border-radius: 6px;
@@ -32,6 +31,12 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   line-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* Keeps text in one line */
+  min-width: 100px;     /* Optional, for equal width if needed */
+  height: 42px;         /* Forces equal height */
 }
 
 /* Login (Green) */
@@ -48,19 +53,11 @@
 .signup-button {
   background-color: #3b82f6; /* Tailwind blue-500 */
   color: white;
+  height: 26px;
   margin-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  line-height: 1.25rem;
+  width: 10px;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .signup-button:hover {
@@ -69,11 +66,11 @@
 
 .navbar-title-link {
   text-decoration: none;
-  color: inherit; /* Keeps the same color as surrounding text */
+  color: inherit;
   font-size: 24px;
   font-weight: bold;
 }
 
 .navbar-title-link:hover {
-  color: #60a5fa; /* Optional hover color */
+  color: #60a5fa;
 }

@@ -46,8 +46,6 @@ const StudentLogin = () => {
         <img src={logo} alt="Student Alumni Connect Logo" className="login-logo" />
         <div className="login-form">
           <h2>Student Login</h2>
-          <p className="browser-tip">(Best viewed in Chrome 60+)</p>
-
           <label htmlFor="email">Email Address</label>
           <input
             id="email"
@@ -70,9 +68,7 @@ const StudentLogin = () => {
 
           <div className="login-actions">
             <a href="#">Forgot Password?</a>
-            <a href="#">Get Activation Link</a>
           </div>
-
           <button className="login-btn" onClick={handleLogin}>
             Login
           </button>

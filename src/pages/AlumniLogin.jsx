@@ -34,17 +34,13 @@ const AlumniLogin = () => {
         <img src={logo} alt="Institute Logo" />
         <div className="login-form">
           <h2>Alumni Login</h2>
-          <p>Are you a student? <a href="/student-login">Login here</a></p>
-          <p style={{ fontSize: '12px', color: '#6b7280' }}>
-            (For better experience use Google Chrome 60 and above)
-          </p>
+          <p>Are you a student? <a href="/login/student">Login here</a></p>
           <label>Email Address</label>
           <input type="email" placeholder="Email" />
           <label>Password</label>
           <input type="password" placeholder="Password" />
           <div className="login-actions">
             <a href="#">Forgot Password?</a>
-            <a href="#">Get Activation Link</a>
           </div>
           <button onClick={handleLogin}>Login</button>
         </div>
