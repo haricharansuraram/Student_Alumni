@@ -209,7 +209,7 @@
 .password-toggle {
   position: absolute;
   right: 10px;
-  top: 40%; /* Adjusted to move it up */
+  top: 15%; /* Adjusted to move it up */
   transform: translateY(-50%); /* Keep the transform for perfect centering relative to the new 'top' */
   background: none;
   border: none;
