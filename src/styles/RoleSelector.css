@@ -1,46 +1,219 @@
+/* Role Selector Page Styles */
 .role-selector-container {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #3b82f6, #60a5fa); /* gradient blue */
+  justify-content: center;
+  padding: 0px;
+  font-family: 'Inter', sans-serif; /* Consistent font */
 }
 
+.role-selector-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Back Button (consistent with Signup/Login) */
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  width: auto;
+  max-width: fit-content;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.back-button:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Role Selector Card */
 .role-selector-card {
-  background-color: white;
-  padding: 3rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15); /* Stronger shadow for depth */
+  padding: 25px;
   text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 500px; /* Constrain width for better aesthetics */
   width: 100%;
-  max-width: 400px;
+  animation: fadeIn 0.8s ease-out; /* Fade-in animation */
+  /* --- CHANGE START --- */
+  margin-top: -60px; /* Adjust this value to move it further up (negative value) or down (positive value) */
+  /* --- CHANGE END --- */
 }
 
-.role-selector-card h2 {
-  margin-bottom: 2rem;
-  font-size: 1.75rem;
-  color: #1e3a8a; /* blue-900 */
+.role-selector-card .card-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0px;
+}
+
+.role-selector-card .card-description {
+  font-size: 16px;
+  color: #718096;
+  margin-bottom: 0px;
+  line-height: 0.5;
 }
 
 .role-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 8px; /* Space between buttons */
 }
 
-.role-buttons button {
-  padding: 0.8rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #2563eb; /* Tailwind blue-600 */
-  color: white;
+.role-button {
+  width: 100%;
+  padding: 15px 20px;
+  background: #f8fafc; /* Light background for default state */
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 18px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  color: #2d3748;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content within button */
+  gap: 12px; /* Space between icon and text */
 }
 
-.role-buttons button:hover {
-  background-color: #1d4ed8; /* Tailwind blue-700 */
+.role-button:hover {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
+  transform: translateY(-3px); /* Subtle lift effect on hover */
+}
+
+.role-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+}
+
+.role-button .role-icon {
+  font-size: 28px; /* Larger icons */
+  display: flex; /* For centering emoji */
+  align-items: center;
+  justify-content: center;
+  line-height: 1; /* Helps vertical alignment */
+}
+
+.role-button .role-text {
+  flex-grow: 1; /* Allows text to take available space */
+  text-align: center; /* Center text within its flex item */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .role-selector-container {
+    padding: 15px;
+  }
+
+  .back-button {
+    top: 20px;
+    left: 20px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .role-selector-card {
+    padding: 30px 20px;
+    border-radius: 15px;
+    margin-top: -30px; /* Adjust for smaller screens as well */
+  }
+
+  .role-selector-card .card-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .role-selector-card .card-description {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .role-buttons {
+    gap: 10px;
+  }
+
+  .role-button {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+
+  .role-button .role-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .role-selector-card {
+    padding: 25px 15px;
+    margin-top: -20px; /* Adjust for very small screens */
+  }
+
+  .role-selector-card .card-title {
+    font-size: 24px;
+  }
+
+  .role-selector-card .card-description {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .role-button {
+    font-size: 15px;
+  }
+
+  .role-button .role-icon {
+    font-size: 22px;
+  }
 }
