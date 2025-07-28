@@ -349,7 +349,7 @@ const SignUp = () => {
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  placeholder="e.g., San Francisco, CA"
+                  placeholder="e.g., Delhi, India"
                 />
               </div>
             </div>

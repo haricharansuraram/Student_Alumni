@@ -3,13 +3,14 @@
   justify-content: space-between;
   align-items: center;
   background-color: #1f2937;
-  padding: 1rem 2rem;
+  /* Further decreased vertical padding to reduce height */
+  padding: 0.6rem 2rem; /* Adjusted from 0.75rem */
   color: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar-brand h1 {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
   color: white;
   margin: 0;
@@ -22,21 +23,22 @@
 
 /* Common button styles */
 .nav-button {
-  font-size: 16px;
+  font-size: 14px; /* Further reduced font size for buttons */
   font-weight: 500;
-  padding: 0.5rem 1.2rem;
+  /* Further decreased vertical padding for buttons */
+  padding: 0.35rem 0.7rem; /* Adjusted from 0.4rem 0.8rem */
   border-radius: 6px;
   text-decoration: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  line-height: 1.25rem;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap; /* Keeps text in one line */
-  min-width: 100px;     /* Optional, for equal width if needed */
-  height: 42px;         /* Forces equal height */
+  white-space: nowrap;
+  min-width: 80px; /* Adjusted min-width slightly */
+  height: 34px; /* Further adjusted fixed height for consistency */
 }
 
 /* Login (Green) */
@@ -53,11 +55,10 @@
 .signup-button {
   background-color: #3b82f6; /* Tailwind blue-500 */
   color: white;
-  height: 26px;
   margin-top: 15px;
-  width: 10px;
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
+  height: 24px;
+  padding-left: 0.3px;
+  padding-right: 0.3px;
 }
 
 .signup-button:hover {
@@ -67,7 +68,7 @@
 .navbar-title-link {
   text-decoration: none;
   color: inherit;
-  font-size: 24px;
+  font-size: 20px; /* Further reduced font size for title link */
   font-weight: bold;
 }
 
