@@ -1,0 +1,684 @@
+/* Professional SignUp Page Styles */
+.signup-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-bottom: 20px;
+}
+
+.signup-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Back Button */
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 33px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  width: auto;
+  max-width: fit-content;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.back-button:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Main Content */
+.signup-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Left Section - Form */
+.signup-form-section {
+  flex: 4;
+  padding: 50px;
+  background: white;
+  overflow-y: auto;
+  max-height: 85vh;
+  width: 85%;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.signup-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.signup-header p {
+  font-size: 16px;
+  color: #718096;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 10px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  width: 100%;
+}
+
+.form-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-section h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+/* Form Rows */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* General input styling */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+  color: #2d3748;
+  box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+.form-group input.error,
+.form-group select.error {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* --- PASSWORD INPUT SPECIFIC STYLES --- */
+.password-input {
+  position: relative; /* This makes the .password-input div the positioning context */
+}
+
+.password-input input {
+  padding-right: 40px; /* Make space for the icon on the right */
+  width: 100%;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+  color: #2d3748;
+  box-sizing: border-box;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 40%; /* Adjusted to move it up */
+  transform: translateY(-50%); /* Keep the transform for perfect centering relative to the new 'top' */
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #a0aec0;
+  transition: color 0.3s ease;
+  z-index: 2;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  outline: none;
+}
+
+.password-toggle:hover {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-50%); /* Maintain vertical centering on hover */
+}
+
+/* --- END PASSWORD INPUT SPECIFIC STYLES --- */
+
+/* Password Requirements */
+.password-requirements {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.password-requirements p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.password-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.password-requirements li {
+  font-size: 11px;
+  color: #a0aec0;
+  margin-bottom: 4px;
+  padding-left: 18px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.password-requirements li::before {
+  content: '○';
+  position: absolute;
+  left: 0;
+  color: #cbd5e0;
+}
+
+.password-requirements li.valid {
+  color: #38a169;
+}
+
+.password-requirements li.valid::before {
+  content: '●';
+  color: #38a169;
+}
+
+/* Role Selection */
+.role-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.role-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.role-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.role-option:hover .role-content {
+  border-color: #cbd5e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.role-option.selected .role-content {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+.role-icon {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7fafc;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.role-option.selected .role-icon {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.role-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 5px 0;
+}
+
+.role-info p {
+  font-size: 12px;
+  color: #718096;
+  margin: 0;
+}
+
+/* --- CHECKBOX GROUP SPECIFIC STYLES --- */
+.checkbox-group {
+  margin-bottom: 0;
+}
+
+.checkbox-label {
+  display: flex; /* Make it a flex container */
+  align-items: center; /* Vertically align items in the middle */
+  gap: 8px; /* Reduce gap slightly for a tighter fit, adjust as needed */
+  cursor: pointer;
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.2; /* Reduce line-height for compact text */
+  white-space: normal; /* Allow text to wrap naturally if space is too small */
+  word-break: break-word; /* Prevents long words from overflowing */
+}
+
+/* Ensure the input itself doesn't cause extra height */
+.checkbox-label input[type="checkbox"] {
+  flex-shrink: 0; /* Prevents the checkbox from shrinking */
+  width: 18px;
+  height: 18px;
+  margin: 0; /* Remove default margin */
+  cursor: pointer;
+  /* Add explicit vertical alignment if needed, though align-items: center on parent helps */
+  vertical-align: middle;
+}
+
+/* Ensure the text part of the label doesn't wrap unnecessarily */
+.checkbox-label span,
+.checkbox-label a {
+    white-space: normal; /* Allow normal wrapping behavior */
+    display: inline; /* Ensure links and spans behave inline within the flex container */
+}
+
+.checkbox-label a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.checkbox-label a:hover {
+  text-decoration: underline;
+}
+/* --- END CHECKBOX GROUP SPECIFIC STYLES --- */
+
+
+/* Submit Button */
+.signup-submit {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.signup-submit:active {
+  transform: translateY(0);
+}
+
+.signup-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.signup-submit.loading {
+  color: transparent;
+}
+
+.signup-submit.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Login Link */
+.login-link {
+  text-align: center;
+  font-size: 14px;
+  color: #718096;
+}
+
+.login-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Right Section - Benefits */
+.signup-benefits {
+  flex: 2;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: auto;
+}
+
+.signup-benefits::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  opacity: 0.3;
+}
+
+.benefits-content {
+  position: relative;
+  z-index: 2;
+}
+
+.benefits-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(10px);
+}
+
+.benefit-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.benefit-text h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.benefit-text p {
+  font-size: 13px;
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .signup-content {
+    flex-direction: column;
+    max-width: 700px;
+  }
+
+  .signup-form-section {
+    padding: 40px;
+    flex: none;
+    width: 100%;
+  }
+
+  .signup-benefits {
+    padding: 30px;
+    min-width: auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  .benefits-content h2 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 10px;
+  }
+
+  .back-button {
+    top: 20px;
+    left: 20px;
+    padding: 8px 12px;
+    font-size: 12px;
+    width: auto;
+    max-width: fit-content;
+  }
+
+  .signup-form-section {
+    padding: 30px 20px;
+  }
+
+  .form-section {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .role-selection {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .signup-header h1 {
+    font-size: 24px;
+  }
+
+  .signup-benefits {
+    padding: 30px 20px;
+  }
+
+  .benefits-content h2 {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .benefits-list {
+    gap: 20px;
+  }
+
+  .benefit-item {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-form-section {
+    padding: 20px 15px;
+  }
+
+  .form-section {
+    padding: 15px;
+    width: 80%;
+  }
+
+  .signup-header h1 {
+    font-size: 20px;
+  }
+
+  .signup-header p {
+    font-size: 14px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .signup-submit {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
