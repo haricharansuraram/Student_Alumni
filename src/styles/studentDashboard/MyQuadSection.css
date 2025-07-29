@@ -1,0 +1,383 @@
+/* src/styles/studentDashboard/MyQuadSection.css */
+
+/* Inherits .dashboard-section-card, .section-title, .section-description from StudentDashboard.css */
+
+.connections-search-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.connections-search-bar input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #2d3748;
+  max-width: 350px; /* Limit search input width */
+  box-sizing: border-box;
+}
+
+.connections-search-bar input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.connections-search-bar button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.connections-search-bar button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.connections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for connections */
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.connection-card {
+  background-color: #f8fafd;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.connection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.user-circle-avatar { /* Reusable avatar style */
+  font-size: 3.5rem; /* Larger icon for profiles */
+  color: #a0aec0;
+  border-radius: 50%;
+  background-color: #edf2f7;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border: 3px solid #cbd5e0;
+  flex-shrink: 0;
+}
+
+.connection-avatar {
+  /* Inherits from .user-circle-avatar */
+}
+
+.connection-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #2d3748;
+}
+
+.connection-meta {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 10px;
+}
+
+.connection-bio {
+  font-size: 0.85rem;
+  color: #4a5568;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.connection-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.message-button, .view-profile-button {
+  background: linear-gradient(135deg, #3b82f6, #2563eb); /* Blue for message */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-grow: 1;
+  min-width: 120px;
+}
+
+.view-profile-button {
+  background: #f0f2f5;
+  color: #4a5568;
+  border: 1px solid #cbd5e0;
+}
+
+.message-button:hover, .view-profile-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.no-results-message {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  padding: 30px;
+  width: 100%;
+}
+
+.quad-features-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.connections-feature-card {
+  background: linear-gradient(135deg, #fefefe, #fcfcfc);
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.connections-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.feature-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature-card-title svg {
+  font-size: 1.4rem;
+  color: #667eea;
+}
+
+.connections-feature-card p {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.feature-card-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-end;
+}
+
+.feature-card-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .connections-search-bar input {
+    max-width: 280px;
+  }
+  .connections-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .connection-card {
+    padding: 20px;
+  }
+  .connection-avatar {
+    font-size: 3rem;
+    width: 70px;
+    height: 70px;
+  }
+  .connection-card h3 {
+    font-size: 1.1rem;
+  }
+  .connection-meta, .connection-bio {
+    font-size: 0.8rem;
+  }
+  .quad-features-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .connections-feature-card {
+    padding: 20px;
+  }
+  .feature-card-title {
+    font-size: 1.1rem;
+  }
+  .connections-feature-card p {
+    font-size: 0.85rem;
+  }
+  .feature-card-button {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .connections-search-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .connections-search-bar input,
+  .connections-search-bar button {
+    max-width: 100%;
+  }
+  .connections-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .connection-card {
+    padding: 18px;
+  }
+  .connection-avatar {
+    font-size: 2.8rem;
+    width: 60px;
+    height: 60px;
+  }
+  .connection-card h3 {
+    font-size: 1.05rem;
+  }
+  .quad-features-section {
+    gap: 15px;
+  }
+  .connections-feature-card {
+    padding: 18px;
+  }
+  .feature-card-title {
+    font-size: 1rem;
+  }
+  .connections-feature-card p {
+    font-size: 0.8rem;
+  }
+  .feature-card-button {
+    font-size: 0.8rem;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .connections-search-bar {
+    gap: 8px;
+  }
+  .connections-search-bar input,
+  .connections-search-bar button {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+  .connections-grid {
+    gap: 10px;
+  }
+  .connection-card {
+    padding: 15px;
+  }
+  .connection-avatar {
+    font-size: 2.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  .connection-card h3 {
+    font-size: 1rem;
+  }
+  .connection-meta, .connection-bio {
+    font-size: 0.75rem;
+  }
+  .connection-card-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .message-button, .view-profile-button {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    min-width: unset;
+  }
+  .quad-features-section {
+    gap: 10px;
+  }
+  .connections-feature-card {
+    padding: 15px;
+  }
+  .feature-card-title {
+    font-size: 0.95rem;
+    gap: 8px;
+  }
+  .feature-card-title svg {
+    font-size: 1.1rem;
+  }
+  .connections-feature-card p {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+  }
+  .feature-card-button {
+    font-size: 0.75rem;
+    padding: 8px 15px;
+  }
+}
