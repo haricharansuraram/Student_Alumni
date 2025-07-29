@@ -1,59 +1,532 @@
-.dashboard-container {
+/* src/styles/StudentDashboard.css */
+
+/* Base Layout for Dashboard */
+.dashboard-layout {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  flex-direction: column; /* Stacks header, main content, and footer */
+  min-height: 100vh; /* Ensures the whole dashboard takes full viewport height */
+  background: linear-gradient(135deg, #f0f4f8 0%, #e6e9ee 100%); /* Soft, clean background */
+  font-family: 'Inter', sans-serif;
+  color: #2d3748; /* Default text color for content */
+  overflow: hidden; /* Hide main layout scrollbar, let internal content scroll */
 }
 
-.student-navbar {
-  background-color: #1e293b;
-  color: white;
-  padding: 1rem 2rem;
+/* Custom Scrollbar for overflow areas */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f2f5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a0aec0;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Top Header */
+.top-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-.student-navbar-brand h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.dashboard-content {
-  flex-grow: 1;
-  padding: 1rem;
-  background-color: #f3f4f6;
-  text-align: center;
-}
-
-.footer-nav {
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  background-color: #1e293b;
+  /* Premium gradient for header */
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.75rem 0;
-  position: fixed;
-  bottom: 0;
+  /* MODIFIED: Drastically decreased vertical padding for a very very short navbar */
+  padding: 0.2rem 1.5rem; /* Reduced from 0.3rem 2rem */
+  /* Enhanced shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Ensure it stays on top */
+  flex-shrink: 0; /* Prevent header from shrinking */
+  position: sticky; /* Fixed to top */
+  top: 0;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.footer-btn {
-  background: none;
-  border: none;
-  color: white;
-  text-align: center;
+.header-left {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  font-size: 12px;
+  gap: 10px; /* Reduced gap */
+}
+
+
+
+
+
+/* App Brand Link */
+.app-brand-link {
+  color: white;
+  text-decoration: none;
+  /* MODIFIED: Drastically reduced font size for brand link */
+  font-size: 1rem; /* Reduced from 1.2rem */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Reduced gap */
+  transition: all 0.3s ease;
+}
+
+.app-brand-link:hover {
+  opacity: 0.9;
+  transform: translateX(2px);
+}
+
+/* User Info Dropdown */
+.user-info-dropdown {
+  position: relative;
+  cursor: pointer;
+  /* MODIFIED: Further reduced padding for user info dropdown */
+  padding: 1px 4px; /* Reduced from 2px 5px */
+  border-radius: 8px; /* Slightly less rounded for very small size */
+  transition: background-color 0.3s ease;
+  display: flex; /* To align name and potential arrow */
+  align-items: center;
+}
+
+.user-info-dropdown:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.user-info-dropdown .user-name {
+  font-weight: 900;
+  /* MODIFIED: Further reduced font size for user name */
+  font-size: 0.65rem; /* Reduced from 0.75rem */
+  margin-right: 4px; /* Reduced margin */
+}
+
+.user-info-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px); /* Adjusted top position to match new header height */
+  right: 0;
+  background-color: white;
+  /* Enhanced shadow for dropdown */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* More rounded */
+  min-width: 160px; /* Slightly narrower dropdown */
+  z-index: 101;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Allows hover out without immediate disappearance */
+}
+
+.user-info-dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable interactions when visible */
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Reduced gap */
+  padding: 10px 15px; /* Reduced padding */
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 0.85rem; /* Reduced font size */
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
   cursor: pointer;
 }
 
-.footer-btn svg {
-  font-size: 18px;
-  margin-bottom: 4px;
+.dropdown-item:hover {
+  background-color: #f0f2f5;
+  color: #667eea; /* Highlight color on hover */
 }
 
-.footer-btn:hover {
-  color: #60a5fa;
+.dropdown-item.logout-btn {
+  color: #e53e3e; /* Red color for logout */
+}
+.dropdown-item.logout-btn:hover {
+  background-color: #ffebeb; /* Light red background on hover */
+  color: #c53030;
+}
+
+/* User Circle Avatar (reusable across sections) */
+.user-circle-avatar {
+  font-size: 1.8rem; /* Default size for header/chat avatars */
+  color: #a0aec0;
+  border-radius: 50%;
+  background-color: #edf2f7;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid #cbd5e0;
+}
+
+.header-avatar {
+  /* MODIFIED: Drastically reduced size for header avatar */
+  width: 35px; /* Reduced from 18px */
+  height: 35px; /* Reduced from 18px */
+  font-size: 0.6rem; /* Reduced from 0.7rem */
+  margin-right: 3px; /* Reduced margin */
+  color: rgba(255,255,255,0.8);
+  border-radius: 150px;
+}
+
+/* Main Dashboard Content Area */
+.main-dashboard-content {
+  flex-grow: 1; /* Takes all remaining vertical space */
+  padding: 30px; /* Generous padding for content */
+  /* MODIFIED: Adjusted padding-bottom to account for new footer height */
+  padding-bottom: 45px; /* Adjusted from 55px (approx. footer height ~30px + buffer) */
+  background-color: #f8fafd; /* Very light, almost white background for content */
+  overflow-y: auto; /* IMPORTANT: Content inside this area will scroll */
+  box-sizing: border-box; /* Include padding in height/width */
+  display: flex; /* Use flex to center content card */
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align content to top */
+}
+
+/* Dashboard Section Card (for each tab's content) */
+.dashboard-section-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
+  padding: 40px; /* Generous padding inside cards */
+  width: 100%;
+  max-width: 1000px; /* Max width for content cards */
+  box-sizing: border-box;
+  animation: fadeIn 0.5s ease-out; /* Fade in when tab changes */
+}
+
+.dashboard-section-card.full-width-card {
+  max-width: 1200px; /* Wider for chat interface */
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: #718096;
+  margin-bottom: 30px;
+}
+
+/* Quick Links Grid (Dashboard Home) */
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.quick-link-item {
+  background-color: #f8fafd;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.quick-link-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.quick-link-icon {
+  font-size: 2.5rem;
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+.quick-link-item h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2d3748;
+}
+
+.quick-link-item p {
+  font-size: 0.85rem;
+  color: #718096;
+  line-height: 1.4;
+}
+
+
+/* Bottom Navigation (Primary Dashboard Navigation) */
+.bottom-nav {
+  display: flex; /* Always flex */
+  background-color: #ffffff;
+  /* MODIFIED: Removed top border */
+  border-top: none; /* Removed */
+  /* MODIFIED: Drastically decreased vertical padding for a very short footer */
+  padding: 0rem 0; /* Reduced from 0.2rem */
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  position: fixed; /* Fixed to bottom */
+  bottom: 0;
+  left: 0; /* Ensure it spans full width */
+  right: 0; /* Ensure it spans full width */
+  width: 100%;
+  z-index: 100;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.bottom-nav-btn {
+  flex: 1; /* Distribute space evenly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #718096;
+  /* MODIFIED: Drastically reduced font size for button text */
+  font-size: 0.45rem; /* Reduced from 0.55rem */
+  /* MODIFIED: Drastically reduced padding for touch targets */
+  padding: 0px 0px; /* Reduced from 4px 3px */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative; /* For active indicator */
+}
+
+.bottom-nav-btn svg {
+  /* MODIFIED: Drastically reduced icon size */
+  font-size: 0.9rem; /* Reduced from 1rem */
+  margin-bottom: 0px; /* Reduced margin */
+}
+
+.bottom-nav-btn.active {
+  color: #667eea;
+  font-weight: 600;
+  background-color: #e6eaf3; /* Subtle active background */
+  border-radius: 8px; /* Rounded active state */
+}
+
+.bottom-nav-btn.active::after {
+  /* MODIFIED: Removed the active indicator line */
+  content: none; /* Removed the line */
+}
+
+.bottom-nav-btn:hover {
+  color: #667eea;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInBottom {
+  from { width: 0; opacity: 0; }
+  to { width: 60%; opacity: 1; }
+}
+
+
+/* Responsive Adjustments */
+@media (min-width: 769px) {
+  /* On larger screens, the main dashboard content takes more space */
+  .main-dashboard-content {
+    padding: 40px; /* More generous padding on desktop */
+    /* MODIFIED: Adjusted padding-bottom for desktop to match new footer height */
+    padding-bottom: 45px; /* Adjusted from 55px */
+  }
+  .dashboard-section-card {
+    padding: 50px; /* More padding inside cards on desktop */
+  }
+  .section-title {
+    font-size: 2.5rem; /* Larger titles on desktop */
+  }
+  .section-description {
+    font-size: 1.05rem;
+  }
+  .quick-links-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust grid for desktop */
+  }
+  .alumni-list-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust grid for desktop */
+  }
+  .connections-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid for desktop */
+  }
+  .explore-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust grid for desktop */
+  }
+
+  /* Hide sidebar toggle on desktop (it's not used in this single-page layout) */
+  .sidebar-toggle {
+    display: none;
+  }
+  /* Ensure bottom nav is always displayed as primary nav, even on desktop */
+  .bottom-nav {
+    display: flex; /* Override display: none from previous version */
+    position: fixed; /* Keep it fixed on desktop */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: none; /* Removed */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); /* Re-add shadow if removed */
+    /* MODIFIED: Reduced padding for desktop bottom nav */
+    padding: 0rem 0; /* Reduced from 0.2rem */
+  }
+  .bottom-nav-btn {
+    /* MODIFIED: Reduced font size for desktop bottom nav */
+    font-size: 0.7rem; /* Reduced from 0.75rem */
+    /* MODIFIED: Reduced padding */
+    padding: 8px 8px; /* Reduced from 10px 10px */
+  }
+  .bottom-nav-btn svg {
+    /* MODIFIED: Reduced icon size */
+    font-size: 1.2rem; /* Reduced from 1.4rem */
+  }
+  .bottom-nav-btn.active::after {
+    height: 4px; /* Thicker active indicator */
+  }
+
+  /* For desktop, the dashboard-layout should manage overall height */
+  .dashboard-layout {
+    display: flex;
+    flex-direction: column; /* Revert to column for desktop as well */
+  }
+}
+
+@media (max-width: 768px) {
+  .top-header {
+    /* MODIFIED: Reduced padding for mobile header */
+    padding: 0.3rem 0.8rem; /* Reduced from 0.4rem */
+  }
+  .app-brand-link {
+    /* MODIFIED: Reduced font size for mobile brand link */
+    font-size: 1.1rem; /* Reduced from 1.2rem */
+  }
+  .user-info-dropdown {
+    /* MODIFIED: Reduced padding for mobile user dropdown */
+    padding: 2px 5px; /* Reduced from 4px 8px */
+  }
+  .user-info-dropdown .user-name {
+    /* MODIFIED: Reduced font size for mobile user name */
+    font-size: 0.7rem; /* Reduced from 0.8rem */
+  }
+  .header-avatar {
+    /* MODIFIED: Reduced size for mobile header avatar */
+    width: 20px; /* Reduced from 24px */
+    height: 20px; /* Reduced from 24px */
+    font-size: 0.8rem; /* Reduced from 1rem */
+  }
+  .main-dashboard-content {
+    padding: 15px;
+    /* MODIFIED: Adjusted padding-bottom for mobile to match new footer height */
+    padding-bottom: 45px; /* Reduced from 55px */
+  }
+  .dashboard-section-card {
+    padding: 25px;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .section-description {
+    font-size: 0.9rem;
+  }
+  .quick-links-grid {
+    grid-template-columns: 1fr; /* Stack on mobile */
+    gap: 15px;
+  }
+  .quick-link-item {
+    padding: 15px;
+  }
+  .quick-link-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .quick-link-item h3 {
+    font-size: 0.95rem;
+  }
+  .quick-link-item p {
+    font-size: 0.75rem;
+  }
+  .bottom-nav {
+    /* MODIFIED: Reduced padding for mobile bottom nav */
+    padding: 0 0; /* Reduced from 0.25rem */
+  }
+  .bottom-nav-btn {
+    /* MODIFIED: Reduced font size for mobile bottom nav text */
+    font-size: 0.55rem; /* Reduced from 0.6rem */
+    /* MODIFIED: Reduced padding for mobile bottom nav buttons */
+    padding: 4px 4px; /* Reduced from 5px 5px */
+  }
+  .bottom-nav-btn svg {
+    /* MODIFIED: Reduced icon size for mobile bottom nav */
+    font-size: 1rem; /* Reduced from 1.1rem */
+  }
+}
+
+@media (max-width: 480px) {
+  .top-header {
+    /* MODIFIED: Further reduced padding for very small mobile header */
+    padding: 0.2rem 0.4rem; /* Reduced from 0.3rem */
+  }
+  .app-brand-link {
+    /* MODIFIED: Further reduced font size for very small mobile brand link */
+    font-size: 0.9rem; /* Reduced from 1rem */
+  }
+  .user-info-dropdown {
+    /* MODIFIED: Further reduced padding for very small mobile user dropdown */
+    padding: 1px 3px; /* Reduced from 2px 5px */
+  }
+  .user-info-dropdown .user-name {
+    /* MODIFIED: Further reduced font size for very small mobile user name */
+    font-size: 0.6rem; /* Reduced from 0.7rem */
+  }
+  .header-avatar {
+    /* MODIFIED: Further reduced size for very small mobile header avatar */
+    width: 16px; /* Reduced from 20px */
+    height: 16px; /* Reduced from 20px */
+    font-size: 0.7rem; /* Reduced from 0.8rem */
+  }
+  .dashboard-section-card {
+    padding: 20px;
+  }
+  .section-title {
+    font-size: 1.6rem;
+  }
+  .section-description {
+    font-size: 0.85rem;
+  }
+  .chat-window {
+    height: 350px; /* Smaller chat window for very small screens */
+  }
+  .bottom-nav-btn {
+    /* MODIFIED: Further reduced font size for very small mobile bottom nav text */
+    font-size: 0.5rem; /* Reduced from 0.55rem */
+    /* MODIFIED: Further reduced padding for very small mobile bottom nav buttons */
+    padding: 3px 2px; /* Reduced from 4px 3px */
+  }
+  .bottom-nav-btn svg {
+    /* MODIFIED: Further reduced icon size for very small mobile bottom nav */
+    font-size: 0.8rem; /* Reduced from 0.9rem */
+  }
 }

@@ -1,0 +1,152 @@
+/* src/styles/studentDashboard/ExploreSection.css */
+
+/* Inherits .dashboard-section-card, .section-title, .section-description from StudentDashboard.css */
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Responsive grid */
+  gap: 25px; /* Space between items */
+  margin-top: 30px;
+}
+
+.explore-item {
+  background-color: #f8fafd; /* Light background for items */
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth transitions for hover */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to top */
+  cursor: pointer; /* Indicate clickable */
+}
+
+.explore-item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+  border-color: #667eea; /* Highlight border on hover */
+}
+
+.explore-icon {
+  font-size: 3.2rem; /* Prominent icon size */
+  color: #667eea; /* Primary accent color */
+  margin-bottom: 20px;
+}
+
+.explore-item h3 {
+  font-size: 1.25rem; /* Clear heading for each item */
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.explore-item p {
+  font-size: 0.9rem; /* Descriptive text */
+  color: #718096;
+  line-height: 1.4;
+  margin-bottom: 25px; /* Space before button */
+  flex-grow: 1; /* Ensures paragraph takes available space, pushing button to bottom */
+}
+
+.explore-item-button {
+  background: linear-gradient(135deg, #10b981, #059669); /* Green gradient for action button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* Full width button within its container */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.explore-item-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px); /* Subtle lift on hover */
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2); /* Soft shadow on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .explore-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .explore-item {
+    padding: 20px;
+  }
+  .explore-icon {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+  }
+  .explore-item h3 {
+    font-size: 1.1rem;
+  }
+  .explore-item p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  .explore-item-button {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-grid {
+    grid-template-columns: 1fr; /* Stack items vertically on mobile */
+    gap: 15px;
+  }
+  .explore-item {
+    padding: 18px;
+    flex-direction: row; /* Layout content horizontally */
+    text-align: left;
+    align-items: center;
+    gap: 15px;
+  }
+  .explore-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+  }
+  .explore-item h3 {
+    font-size: 1.05rem;
+    margin-bottom: 5px;
+  }
+  .explore-item p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    flex-grow: 1;
+  }
+  .explore-item-button {
+    width: auto; /* Allow button to shrink */
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    min-width: 80px; /* Ensure it's not too small */
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-item {
+    padding: 15px;
+    gap: 10px;
+  }
+  .explore-icon {
+    font-size: 2.2rem;
+  }
+  .explore-item h3 {
+    font-size: 0.95rem;
+  }
+  .explore-item p {
+    font-size: 0.75rem;
+  }
+  .explore-item-button {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}

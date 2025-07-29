@@ -1,17 +1,9 @@
+// src/components/Footer.jsx
 import React from 'react';
-
-const footerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  backgroundColor: '#feffffff',
-  color: '#374151',
-  fontSize: '1rem',
-};
+import '../styles/Footer.css'; // Import the dedicated CSS file
 
 const Footer = () => (
-  <footer style={footerStyle}>
+  <footer className="app-footer">
     <p>&copy; {new Date().getFullYear()} Student-Alumni Connect</p>
   </footer>
 );

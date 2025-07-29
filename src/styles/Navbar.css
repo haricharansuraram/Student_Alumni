@@ -1,77 +1,156 @@
+/* src/styles/Navbar.css */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1f2937;
-  /* Further decreased vertical padding to reduce height */
-  padding: 0.6rem 2rem; /* Adjusted from 0.75rem */
-  color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* UNIQUE STYLE: Subtle gradient background */
+  background: linear-gradient(90deg, #f0f4f8 0%, #e8edf3 100%); /* Light, clean gradient */
+  padding: 0.6rem 2rem; /* Adjusted vertical padding for height control */
+  color: #333; /* Darker text for contrast on light background */
+  /* UNIQUE STYLE: Softer, more pronounced shadow for depth */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08), 0 1px 5px rgba(0,0,0,0.05); /* Multi-layer shadow */
+  flex-shrink: 0; /* Prevent navbar from shrinking */
+  width: 100%;
+  box-sizing: border-box;
+  /* Add a subtle border-bottom for definition */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.navbar-brand h1 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  margin: 0;
+.navbar-brand {
+  /* No direct styling needed here, child link is styled */
+}
+
+.navbar-brand .navbar-title-link {
+  text-decoration: none;
+  /* UNIQUE STYLE: Gradient text for brand similar to page titles */
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 24px; /* Slightly larger for prominence */
+  font-weight: 800; /* Extra bold for impact */
+  transition: all 0.3s ease; /* Smooth transition for hover */
+}
+
+.navbar-brand .navbar-title-link:hover {
+  /* Subtle shift or shadow on hover */
+  transform: translateY(-1px);
+  filter: brightness(1.1); /* Slight brighten on hover */
 }
 
 .navbar-links {
   display: flex;
-  gap: 1rem; /* Spacing between login and sign up buttons */
+  gap: 1.2rem; /* Slightly increased spacing between buttons for airiness */
 }
 
 /* Common button styles */
 .nav-button {
-  font-size: 14px; /* Further reduced font size for buttons */
-  font-weight: 500;
-  /* Further decreased vertical padding for buttons */
-  padding: 0.35rem 0.7rem; /* Adjusted from 0.4rem 0.8rem */
-  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600; /* Slightly bolder text */
+  padding: 0.4rem 1rem; /* Slightly more generous padding for better click area */
+  border-radius: 8px; /* Slightly more rounded corners for modern look */
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease; /* Smoother transitions */
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  min-width: 80px; /* Adjusted min-width slightly */
-  height: 34px; /* Further adjusted fixed height for consistency */
+  min-width: 90px; /* Ensures consistent width */
+  height: 38px; /* Consistent height for buttons */
+  box-sizing: border-box;
+  /* Initial state: subtle border for definition */
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Login (Green) */
+/* Login Button - Primary Style (Green accent) */
 .login-button {
-  background-color: #10b981; /* Tailwind green-500 */
+  background-color: #10b981; /* Default background */
   color: white;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); /* Soft shadow for lift */
 }
 
 .login-button:hover {
-  background-color: #059669; /* Tailwind green-600 */
+  background-color: #059669; /* Darker green on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); /* Enhanced shadow */
 }
 
-/* Sign Up (Blue) */
+/* Sign Up Button - Secondary Style (Blue accent, now consistent) */
 .signup-button {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+  /* UNIQUE STYLE: Gradient background for signup, similar to primary app colors */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2); /* Soft shadow for lift */
+  /* Remove any conflicting previous overrides */
+
   margin-top: 15px;
-  height: 24px;
+  
   padding-left: 0.3px;
   padding-right: 0.3px;
 }
 
+
 .signup-button:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
+  /* UNIQUE STYLE: Slightly darker gradient on hover */
+  background: linear-gradient(135deg, #556ee6, #673ba0);
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3); /* Enhanced shadow */
 }
 
-.navbar-title-link {
-  text-decoration: none;
-  color: inherit;
-  font-size: 20px; /* Further reduced font size for title link */
-  font-weight: bold;
+/* Responsive adjustments for a tighter fit on smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem; /* Adjust padding for tablets */
+  }
+
+  .navbar-brand .navbar-title-link {
+    font-size: 20px; /* Smaller title on smaller screens */
+  }
+
+  .navbar-links {
+    gap: 0.8rem; /* Tighter gap on smaller screens */
+  }
+
+  .nav-button {
+    font-size: 13px;
+    padding: 0.3rem 0.7rem;
+    min-width: 70px;
+    height: 34px;
+  }
 }
 
-.navbar-title-link:hover {
-  color: #60a5fa;
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.4rem 0.8rem; /* Even tighter padding for mobile */
+    flex-wrap: wrap; /* Allow wrapping if content is too wide */
+    justify-content: center; /* Center items if they wrap */
+    gap: 0.5rem; /* Gap between wrapped items */
+  }
+
+  .navbar-brand {
+    width: 100%; /* Take full width if wrapped */
+    text-align: center;
+    margin-bottom: 0.5rem; /* Space below brand if wrapped */
+  }
+
+  .navbar-links {
+    width: 100%; /* Make buttons take full width if wrapped */
+    justify-content: space-around; /* Distribute buttons */
+  }
+
+  .nav-button {
+    font-size: 12px;
+    padding: 0.25rem 0.5rem;
+    min-width: unset; /* Let content dictate width if wrapping */
+    height: 30px;
+    flex-grow: 1; /* Allow buttons to grow in wrapped state */
+  }
+
+  .navbar-title-link {
+    font-size: 18px; /* Smallest title on very small screens */
+  }
 }

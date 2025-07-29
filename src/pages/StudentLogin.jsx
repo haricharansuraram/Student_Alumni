@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../styles/Login.css'; // Make sure this CSS file is aligned with the new structure
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-
 const StudentLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -36,19 +35,14 @@ const StudentLogin = () => {
       setPasswordError('Password must be at least 6 characters.');
       isValid = false;
     }
-
     return isValid;
   };
-
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
     if (!validateForm()) {
       return; // Stop if validation fails
     }
-
     setIsLoading(true); // Start loading indicator
-
     try {
       // --- PRODUCTION-READY LOGIN LOGIC ---
       // 1. Send credentials securely to your backend API
@@ -56,9 +50,7 @@ const StudentLogin = () => {
       // 2. Do NOT store sensitive information (like tokens) directly in localStorage
       //    In a real app, consider HTTP-only cookies for tokens.
       //    For this example, we'll keep localStorage for simplicity, but acknowledge the risk.
-
       console.log('Attempting login with:', { email, password });
-
       // Mock API call: Replace this with your actual backend API endpoint
       const response = await new Promise(resolve => setTimeout(() => {
         // Simulate backend response based on credentials
@@ -80,7 +72,6 @@ const StudentLogin = () => {
           });
         }
       }, 1500));
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Login failed.');
