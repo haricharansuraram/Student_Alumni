@@ -10,14 +10,14 @@ const FaUserCircle = ({ className }) => (
     </div>
 );
 
-const EchoChamberSection = () => {
+// Accept selectedChatUser as a prop
+const EchoChamberSection = ({ selectedChatUser }) => {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [newMessage, setNewMessage] = useState('');
-  const messagesEndRef = useRef(null); // Ref for scrolling to bottom of chat
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    // Mock conversations data
     const mockConversations = [
       {
         id: 'conv1',
@@ -47,7 +47,7 @@ const EchoChamberSection = () => {
       },
       {
         id: 'conv3',
-        participant: { id: 'p3', name: 'Mentor John', avatar: 'mentor-john.jpg' },
+        participant: { id: 'p3', name: 'John Mentor', avatar: 'mentor-john.jpg' },
         lastMessage: 'Let\'s schedule our next session.',
         timestamp: 'Yesterday',
         messages: [
@@ -58,12 +58,32 @@ const EchoChamberSection = () => {
       },
     ];
     setConversations(mockConversations);
-    if (mockConversations.length > 0) {
-      setSelectedConversation(mockConversations[0]); // Select the first conversation by default
-    }
   }, []);
+  
+  // This useEffect will run whenever selectedChatUser prop changes
+  useEffect(() => {
+    if (selectedChatUser) {
+      // Find the conversation with the selected user
+      const conversation = conversations.find(conv => conv.participant.name === selectedChatUser.name);
+      if (conversation) {
+        setSelectedConversation(conversation);
+      } else {
+        // If conversation doesn't exist, create a new mock one
+        const newConv = {
+          id: `conv${Date.now()}`,
+          participant: { id: selectedChatUser.id, name: selectedChatUser.name, avatar: selectedChatUser.avatar },
+          lastMessage: `You started a new chat with ${selectedChatUser.name}.`,
+          timestamp: 'Just now',
+          messages: [],
+        };
+        setConversations(prev => [newConv, ...prev]);
+        setSelectedConversation(newConv);
+      }
+    } else if (conversations.length > 0) {
+      setSelectedConversation(conversations[0]); // Select first chat if no specific user is passed
+    }
+  }, [selectedChatUser, conversations]); // Depend on conversations to avoid stale data
 
-  // Scroll to the latest message whenever messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [selectedConversation]);
@@ -84,16 +104,15 @@ const EchoChamberSection = () => {
       return { ...prevConv, messages: updatedMessages, lastMessage: newMessage.trim() };
     });
 
-    // Also update the main conversations list
     setConversations(prevConvs =>
       prevConvs.map(conv =>
         conv.id === selectedConversation.id
-          ? { ...conv, messages: [...conv.messages, messageToSend], lastMessage: newMessage.trim() }
+          ? { ...conv, messages: [...conv.messages, messageToSend], lastMessage: newMessage.trim(), timestamp: 'Just now' }
           : conv
-      )
+      ).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Sort to bring recent chat to top
     );
 
-    setNewMessage(''); // Clear input field
+    setNewMessage('');
   };
 
   return (
@@ -142,7 +161,7 @@ const EchoChamberSection = () => {
                     {msg.text}
                   </div>
                 ))}
-                <div ref={messagesEndRef} /> {/* Scroll target */}
+                <div ref={messagesEndRef} />
               </div>
               <form className="chat-input-area" onSubmit={handleSendMessage}>
                 <input

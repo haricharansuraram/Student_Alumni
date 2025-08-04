@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import '../styles/Login.css'; // Make sure this CSS file is aligned with the new structure
-import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import { FaLock, FaEnvelope } from 'react-icons/fa';
+import logo from '../assets/logo.png';
+import '../styles/Login.css';
+
 const StudentLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State for general login errors
-  const [emailError, setEmailError] = useState(''); // State for email validation error
-  const [passwordError, setPasswordError] = useState(''); // State for password validation error
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     let isValid = true;
@@ -18,7 +20,6 @@ const StudentLogin = () => {
     setPasswordError('');
     setError('');
 
-    // Basic email validation
     if (!email.trim()) {
       setEmailError('Email is required.');
       isValid = false;
@@ -27,76 +28,56 @@ const StudentLogin = () => {
       isValid = false;
     }
 
-    // Basic password validation
     if (!password.trim()) {
       setPasswordError('Password is required.');
       isValid = false;
-    } else if (password.length < 6) { // Minimum length for password
+    } else if (password.length < 6) {
       setPasswordError('Password must be at least 6 characters.');
       isValid = false;
     }
+
     return isValid;
   };
+
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
+
     if (!validateForm()) {
-      return; // Stop if validation fails
+      return;
     }
-    setIsLoading(true); // Start loading indicator
+
+    setIsLoading(true);
+
     try {
-      // --- PRODUCTION-READY LOGIN LOGIC ---
-      // 1. Send credentials securely to your backend API
-      //    (e.g., using fetch or axios with HTTPS)
-      // 2. Do NOT store sensitive information (like tokens) directly in localStorage
-      //    In a real app, consider HTTP-only cookies for tokens.
-      //    For this example, we'll keep localStorage for simplicity, but acknowledge the risk.
-      console.log('Attempting login with:', { email, password });
-      // Mock API call: Replace this with your actual backend API endpoint
-      const response = await new Promise(resolve => setTimeout(() => {
-        // Simulate backend response based on credentials
-        if (email === 'student@example.com' && password === 'password123') {
-          resolve({
-            ok: true,
-            status: 200,
-            json: () => ({
-              email: email,
-              role: 'Student',
-              token: 'mock_jwt_token_for_student',
-            }),
-          });
-        } else {
-          resolve({
-            ok: false,
-            status: 401,
-            json: () => ({ message: 'Invalid email or password.' }),
-          });
-        }
-      }, 1500));
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed.');
-      }
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       const userData = await response.json();
 
-      // Store user data (e.g., token, role) securely.
-      // For a real application, consider using HTTP-only cookies for tokens.
-      // localStorage is used here for demonstration but is not the most secure.
+      if (!response.ok) {
+        throw new Error(userData.message || 'Login failed.');
+      }
+
       localStorage.setItem('user', JSON.stringify({
         email: userData.email,
         role: userData.role,
         token: userData.token,
       }));
 
-      // Redirect based on role (ensure your routes are correctly configured)
-      switch (userData.role) {
-        case 'Student':
+      // FIX: Use toLowerCase() for a case-insensitive role check
+      switch (userData.role.toLowerCase()) {
+        case 'student':
           navigate('/student/dashboard');
           break;
-        case 'Alumni':
+        case 'alumni':
           navigate('/alumni/dashboard');
           break;
-        case 'Admin':
+        case 'admin':
           navigate('/admin/dashboard');
           break;
         default:
@@ -107,34 +88,37 @@ const StudentLogin = () => {
       setError(err.message || 'An unexpected error occurred during login.');
       console.error('Login error:', err);
     } finally {
-      setIsLoading(false); // End loading indicator
+      setIsLoading(false);
     }
   };
 
-  // Function to navigate back to the role selection page
   const handleBackToRoleSelection = () => {
-    navigate('/select-role'); // Assuming /select-role is your role selection page
+    navigate('/select-role');
+  };
+
+  const handleForgotPassword = () => {
+    alert('Forgot Password functionality is under development.');
+  };
+
+  const handleGetActivationLink = () => {
+    alert('Get Activation Link functionality is under development.');
   };
 
   return (
     <div className="login-container">
-      {/* Back Button (similar to other enhanced pages) */}
       <button
         className="back-button"
         onClick={handleBackToRoleSelection}
       >
         ← Back
       </button>
-
-      {/* LEFT SECTION - Login Form */}
-      <div className="login-content"> {/* Use login-content for consistent layout */}
+      <div className="login-content">
         <div className="login-form-section">
           <div className="login-header">
             <img src={logo} alt="Student Alumni Connect Logo" className="login-logo" />
             <h1>Student Login</h1>
-            <p>Access your student portal</p> {/* Added a sub-heading */}
+            <p>Access your student portal</p>
           </div>
-
           <form className="login-form" onSubmit={handleLogin}>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
@@ -143,65 +127,66 @@ const StudentLogin = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e) => { setEmail(e.target.value); setEmailError(''); }} // Clear error on change
-                className={emailError ? 'error' : ''} // Apply error class
-                disabled={isLoading} // Disable input while loading
+                onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
+                className={emailError ? 'error' : ''}
+                disabled={isLoading}
               />
               {emailError && <span className="error-message">{emailError}</span>}
             </div>
-
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <div className="password-input"> {/* Reuse .password-input for styling */}
+              <div className="password-input">
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value); setPasswordError(''); }} // Clear error on change
-                  className={passwordError ? 'error' : ''} // Apply error class
-                  disabled={isLoading} // Disable input while loading
+                  onChange={(e) => { setPassword(e.target.value); setPasswordError(''); }}
+                  className={passwordError ? 'error' : ''}
+                  disabled={isLoading}
                 />
                 <button
                   type="button"
                   className="password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
-                  disabled={isLoading} // Disable toggle while loading
+                  disabled={isLoading}
                 >
                   {showPassword ? '👁️' : '👁️‍🗨️'}
                 </button>
               </div>
               {passwordError && <span className="error-message">{passwordError}</span>}
             </div>
-
-            {error && <span className="error-message global-error">{error}</span>} {/* Display general login error */}
-
+            {error && <span className="error-message global-error">{error}</span>}
             <div className="login-actions">
               <button
                 type="button"
                 className="link-button"
-                onClick={() => alert('Forgot Password functionality is under development.')}
+                onClick={handleForgotPassword}
                 disabled={isLoading}
               >
                 Forgot Password?
               </button>
+              <button
+                type="button"
+                className="link-button"
+                onClick={handleGetActivationLink}
+                disabled={isLoading}
+              >
+                Get Activation Link
+              </button>
             </div>
-
             <button
               type="submit"
               className={`login-submit ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading} // Disable button while loading
+              disabled={isLoading}
             >
               {isLoading ? 'Logging In...' : 'Login'}
             </button>
-
             <p className="signup-text">
-              Don't have an account? <span className="signup-link-span" onClick={() => navigate('/signup')}>Sign up here</span> {/* Span for signup link */}
+              Don't have an account? <span className="signup-link-span" onClick={() => navigate('/signup')}>Sign up here</span>
             </p>
           </form>
         </div>
-
-        {/* RIGHT SECTION - Benefits/Welcome */}
         <div className="login-benefits">
           <div className="benefits-content">
             <h2>

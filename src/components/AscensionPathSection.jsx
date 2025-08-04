@@ -4,7 +4,7 @@ import {
   FaUser, FaCog, FaRocket, FaCode, FaChartLine, FaBook, FaMapMarkedAlt,
   FaLinkedin, FaGithub, FaLink, FaEnvelope, FaPhone, FaEdit, FaPlus, FaAward, FaTimes
 } from 'react-icons/fa';
-import '../styles/studentDashboard/AscensionPathSection.css'; // Dedicated CSS for Ascension Path
+import '../styles/studentDashboard/AscensionPathSection.css';
 
 // Placeholder for a circular user avatar
 const FaUserCircle = ({ className }) => (
@@ -15,53 +15,94 @@ const FaUserCircle = ({ className }) => (
 
 const AscensionPathSection = () => {
   const [profile, setProfile] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
-  const [editedProfile, setEditedProfile] = useState(null); // State for form data during editing
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProfile, setEditedProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // In a real app, fetch user profile data from your backend API
-    const mockProfile = {
-      id: 's1',
-      name: 'Alex Johnson',
-      email: 'alex.johnson@example.edu',
-      phone: '123-456-7890',
-      batch: '2025',
-      branch: 'Computer Science',
-      bio: 'Aspiring software engineer with a passion for AI and machine learning. Currently exploring ethical AI development and open-source contributions. Looking for internship opportunities in tech.',
-      skills: ['React', 'Node.js', 'Python', 'Machine Learning', 'Data Analysis', 'Cloud Computing'],
-      linkedin: 'https://linkedin.com/in/alexjohnson',
-      github: 'https://github.com/alexjohnson',
-      portfolio: 'https://alexjohnson.dev/portfolio',
-      growthGoals: [
-        { id: 'g1', text: 'Secure a Summer 2024 AI/ML internship', completed: false },
-        { id: 'g2', text: 'Complete advanced Python certification', completed: true },
-        { id: 'g3', text: 'Contribute to an open-source project', completed: false },
-      ],
-      skillProgression: {
-        'React': { level: 'Intermediate', endorsements: 5 },
-        'Python': { level: 'Advanced', endorsements: 10 },
-      },
-      legacyScore: 0, // Students start at 0, alumni gain score
+    const fetchProfile = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!token || !user) {
+          throw new Error('User not authenticated.');
+        }
+
+        // Fetching profile using the authenticated user's ID
+        const response = await fetch(`/api/profile/${user._id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data.');
+        }
+
+        const data = await response.json();
+        setProfile(data);
+        setEditedProfile(data);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
-    setProfile(mockProfile);
-    setEditedProfile(mockProfile); // Initialize editedProfile with current profile
+
+    fetchProfile();
   }, []);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
-    // When exiting edit mode, revert changes if cancelled, or save if confirmed
     if (isEditing) {
-      setEditedProfile(profile); // Revert changes if cancelling
+      // On cancel, revert editedProfile back to the last saved state
+      setEditedProfile(profile);
     }
   };
 
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
-    // In a real app, send editedProfile to backend API
-    console.log('Saving profile:', editedProfile);
-    setProfile(editedProfile); // Update main profile state
-    setIsEditing(false);
-    alert('Profile saved successfully!'); // Placeholder for success feedback
+    setLoading(true);
+    setError(null);
+
+    try {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!token || !user) {
+          throw new Error('User not authenticated.');
+        }
+
+        const response = await fetch('/api/profile', {
+            method: 'POST', // Or PUT, depending on your API design
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                ...editedProfile,
+                skills: editedProfile.skills.join(', ') // Convert back to string for API
+            })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save profile.');
+        }
+
+        const updatedProfile = await response.json();
+        setProfile(updatedProfile);
+        setIsEditing(false);
+        alert('Profile saved successfully!');
+    } catch (err) {
+        console.error("Error saving profile:", err);
+        setError(err.message);
+    } finally {
+        setLoading(false);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -93,8 +134,14 @@ const AscensionPathSection = () => {
     }));
   };
 
+  if (loading) {
+    return <div className="dashboard-section-card">Loading profile...</div>;
+  }
+  if (error) {
+    return <div className="dashboard-section-card error-message">{error}</div>;
+  }
   if (!profile) {
-    return <div className="dashboard-section-card">Loading profile...</div>; // Loading state
+    return <div className="dashboard-section-card">No profile found. Create one by clicking 'Edit Profile'.</div>;
   }
 
   return (
@@ -104,7 +151,7 @@ const AscensionPathSection = () => {
 
       <div className="profile-header-section">
         <FaUserCircle className="profile-avatar" />
-        <h3>{profile.name}</h3>
+        <h3>{profile.user.name}</h3> {/* Display name from the populated user object */}
         <p className="profile-meta">{profile.branch} | Batch {profile.batch}</p>
         <button className="edit-profile-button" onClick={handleEditToggle}>
           {isEditing ? <FaTimes /> : <FaEdit />} {isEditing ? 'Cancel Edit' : 'Edit Profile'}
@@ -145,7 +192,7 @@ const AscensionPathSection = () => {
             <h3 className="section-card-heading">About Me</h3>
             <p>{profile.bio}</p>
             <div className="contact-info">
-              {profile.email && <p><FaEnvelope /> {profile.email}</p>}
+              {profile.user.email && <p><FaEnvelope /> {profile.user.email}</p>}
               {profile.phone && <p><FaPhone /> {profile.phone}</p>}
             </div>
             <div className="social-links">
@@ -154,7 +201,6 @@ const AscensionPathSection = () => {
               {profile.portfolio && <a href={profile.portfolio} target="_blank" rel="noopener noreferrer"><FaLink /> Portfolio</a>}
             </div>
           </div>
-
           <div className="profile-section-card">
             <h3 className="section-card-heading">Skills</h3>
             <div className="skills-list">
@@ -164,7 +210,6 @@ const AscensionPathSection = () => {
             </div>
             <button className="endorse-skills-button"><FaAward /> Get Endorsed</button>
           </div>
-
           <div className="profile-section-card">
             <h3 className="section-card-heading">Growth Goal Tracker <FaRocket /></h3>
             <ul className="growth-goals-list">
@@ -174,7 +219,7 @@ const AscensionPathSection = () => {
                     type="checkbox"
                     checked={goal.completed}
                     onChange={() => handleToggleGoalCompletion(goal.id)}
-                    disabled={!isEditing} // Only allow toggle in edit mode
+                    disabled={!isEditing}
                   />
                   {goal.text}
                 </li>
@@ -182,19 +227,16 @@ const AscensionPathSection = () => {
             </ul>
             <button className="add-goal-button" onClick={handleAddGoal}><FaPlus /> Add New Goal</button>
           </div>
-
           <div className="profile-section-card">
             <h3 className="section-card-heading">Skill Progression Tree <FaCode /></h3>
             <p className="feature-description">Visualize your skill development over time and see endorsements.</p>
             <button className="feature-card-button">View Skill Tree</button>
           </div>
-
           <div className="profile-section-card">
             <h3 className="section-card-heading">My Analytics <FaChartLine /></h3>
             <p className="feature-description">Track your engagement, connections, and learning on Veritas Nexus.</p>
             <button className="feature-card-button">View Analytics</button>
           </div>
-
           <div className="profile-section-card">
             <h3 className="section-card-heading">University Footprint Map <FaMapMarkedAlt /></h3>
             <p className="feature-description">See the global presence of our alumni network and their locations.</p>
