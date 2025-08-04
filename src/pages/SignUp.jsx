@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 import '../styles/SignUp.css';
 
 const SignUp = () => {
@@ -16,7 +17,7 @@ const SignUp = () => {
     profession: '',
     location: '',
     phone: '',
-    agreeToTerms: false
+    agreeToTerms: false,
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -24,16 +25,14 @@ const SignUp = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
-    // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -41,21 +40,18 @@ const SignUp = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // First Name validation
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required';
     } else if (formData.firstName.length < 2) {
       newErrors.firstName = 'First name must be at least 2 characters';
     }
 
-    // Last Name validation
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required';
     } else if (formData.lastName.length < 2) {
       newErrors.lastName = 'Last name must be at least 2 characters';
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
       newErrors.email = 'Email is required';
@@ -63,7 +59,6 @@ const SignUp = () => {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
@@ -72,14 +67,12 @@ const SignUp = () => {
       newErrors.password = 'Password must contain uppercase, lowercase, and number';
     }
 
-    // Confirm Password validation
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
-    // Role-specific validations
     if (formData.role === 'student' && !formData.batch) {
       newErrors.batch = 'Batch year is required for students';
     }
@@ -88,12 +81,10 @@ const SignUp = () => {
       newErrors.profession = 'Profession is required for alumni';
     }
 
-    // Phone validation
     if (formData.phone && !/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Please enter a valid phone number';
     }
 
-    // Terms agreement
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = 'You must agree to the terms and conditions';
     }
@@ -104,7 +95,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -112,13 +103,30 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Success - redirect to login
+      const response = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+        }),
+      });
+
+      const userData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(userData.message || 'Registration failed.');
+      }
+
+      alert('Registration successful! Please log in.');
       navigate('/select-role');
     } catch (error) {
       console.error('Signup failed:', error);
+      setErrors({ global: error.message });
     } finally {
       setIsLoading(false);
     }
@@ -129,24 +137,16 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      {/* Back Button */}
-      <button 
-        className="back-button"
-        onClick={() => navigate('/')}
-      >
+      <button className="back-button" onClick={() => navigate('/')}>
         ← Back to Home
       </button>
-
       <div className="signup-content">
-        {/* Left Section - Form */}
         <div className="signup-form-section">
           <div className="signup-header">
             <h1>Create Your Account</h1>
             <p>Join our community and start connecting with students and alumni</p>
           </div>
-
           <form className="signup-form" onSubmit={handleSubmit}>
-            {/* Personal Information */}
             <div className="form-section">
               <h3>Personal Information</h3>
               <div className="form-row">
@@ -177,7 +177,6 @@ const SignUp = () => {
                   {errors.lastName && <span className="error-message">{errors.lastName}</span>}
                 </div>
               </div>
-
               <div className="form-group">
                 <label htmlFor="email">Email Address *</label>
                 <input
@@ -191,7 +190,6 @@ const SignUp = () => {
                 />
                 {errors.email && <span className="error-message">{errors.email}</span>}
               </div>
-
               <div className="form-group">
                 <label htmlFor="phone">Phone Number</label>
                 <input
@@ -203,11 +201,8 @@ const SignUp = () => {
                   className={errors.phone ? 'error' : ''}
                   placeholder="Enter your phone number"
                 />
-                {errors.phone && <span className="error-message">{errors.phone}</span>}
               </div>
             </div>
-
-            {/* Account Security */}
             <div className="form-section">
               <h3>Account Security</h3>
               <div className="form-group">
@@ -241,7 +236,6 @@ const SignUp = () => {
                   </ul>
                 </div>
               </div>
-
               <div className="form-group">
                 <label htmlFor="confirmPassword">Confirm Password *</label>
                 <div className="password-input">
@@ -265,8 +259,6 @@ const SignUp = () => {
                 {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
               </div>
             </div>
-
-            {/* Role Selection */}
             <div className="form-section">
               <h3>Role Selection</h3>
               <div className="role-selection">
@@ -286,7 +278,6 @@ const SignUp = () => {
                     </div>
                   </div>
                 </label>
-
                 <label className={`role-option ${formData.role === 'alumni' ? 'selected' : ''}`}>
                   <input
                     type="radio"
@@ -304,8 +295,6 @@ const SignUp = () => {
                   </div>
                 </label>
               </div>
-
-              {/* Role-specific fields */}
               {formData.role === 'student' && (
                 <div className="form-group">
                   <label htmlFor="batch">Batch Year *</label>
@@ -317,14 +306,15 @@ const SignUp = () => {
                     className={errors.batch ? 'error' : ''}
                   >
                     <option value="">Select your batch year</option>
-                    {batchYears.map(year => (
-                      <option key={year} value={year}>{year}</option>
+                    {batchYears.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
                     ))}
                   </select>
                   {errors.batch && <span className="error-message">{errors.batch}</span>}
                 </div>
               )}
-
               {formData.role === 'alumni' && (
                 <div className="form-group">
                   <label htmlFor="profession">Profession *</label>
@@ -340,7 +330,6 @@ const SignUp = () => {
                   {errors.profession && <span className="error-message">{errors.profession}</span>}
                 </div>
               )}
-
               <div className="form-group">
                 <label htmlFor="location">Location</label>
                 <input
@@ -349,12 +338,10 @@ const SignUp = () => {
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  placeholder="e.g., Delhi, India"
+                  placeholder="e.g., San Francisco, CA"
                 />
               </div>
             </div>
-
-            {/* Terms and Conditions */}
             <div className="form-section">
               <div className="form-group checkbox-group">
                 <label className="checkbox-label">
@@ -370,24 +357,15 @@ const SignUp = () => {
                 {errors.agreeToTerms && <span className="error-message">{errors.agreeToTerms}</span>}
               </div>
             </div>
-
-            {/* Submit Button */}
-            <button 
-              type="submit" 
-              className={`signup-submit ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading}
-            >
+            {errors.global && <span className="error-message global-error">{errors.global}</span>}
+            <button type="submit" className={`signup-submit ${isLoading ? 'loading' : ''}`} disabled={isLoading}>
               {isLoading ? 'Creating Account...' : 'Create Account'}
             </button>
-
-            {/* Login Link */}
             <div className="login-link">
               Already have an account? <a href="/select-role">Sign in here</a>
             </div>
           </form>
         </div>
-
-        {/* Right Section - Benefits */}
         <div className="signup-benefits">
           <div className="benefits-content">
             <h2>Why Join Student Alumni Connect?</h2>

@@ -31,21 +31,20 @@ const StudentDashboard = () => {
   const [selectedTab, setSelectedTab] = useState('alumni');
 
   useEffect(() => {
-    // In a real app, fetch user data from context/auth service
-    // For now, mock user data from localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      // Check if the user's role is Student before setting the state
+      if (parsedUser.role.toLowerCase() === 'student') {
+        setUser(parsedUser);
+      } else {
+        // If the user's role is not student, log them out and redirect
+        localStorage.removeItem('user');
+        navigate('/select-role');
+      }
     } else {
-      // If no user, redirect to login or home
       navigate('/select-role');
     }
-
-    // You could potentially read a URL parameter to set initial tab
-    // e.g., const queryParams = new URLSearchParams(window.location.search);
-    // const tab = queryParams.get('tab');
-    // if (tab) setSelectedTab(tab);
-
   }, [navigate]);
 
   const handleLogout = () => {
@@ -77,7 +76,7 @@ const StudentDashboard = () => {
       <header className="top-header">
         <div className="header-left">
           <Link to="/" className="app-brand-link">
-            🎓 Veritas Nexus
+            🎓 StudentAlumniConnect
           </Link>
         </div>
         <div className="header-right">
