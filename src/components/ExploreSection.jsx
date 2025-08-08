@@ -1,120 +1,129 @@
 // src/components/ExploreSection.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaBriefcase, FaCalendarAlt, FaGraduationCap, FaBook, FaBullhorn,
-  FaStar, FaAward, FaCog, FaLightbulb, FaGlobe, FaChartLine, FaCode, FaRocket, FaMapMarkedAlt
+  FaStar, FaAward, FaCog, FaLightbulb, FaGlobe, FaChartLine, FaCode, FaRocket, FaMapMarkedAlt, FaChevronLeft, FaChevronRight
 } from 'react-icons/fa';
 import '../styles/studentDashboard/ExploreSection.css'; // Dedicated CSS for Explore
 
-const ExploreSection = ({ navigate }) => { // Receive navigate prop from parent
-  // In a real application, these would navigate to specific routes or open modals
+// Mock data for upcoming and ongoing events
+const mockEvents = [
+  { id: 1, title: 'Alumni Tech Talk: The Future of AI', date: 'Oct 25, 2025', time: '5:00 PM', status: 'Upcoming' },
+  { id: 2, title: 'Career Fair: Fall 2025', date: 'Nov 10, 2025', time: '10:00 AM', status: 'Ongoing' },
+  { id: 3, title: 'Mentorship Mixer', date: 'Nov 1, 2025', time: '6:00 PM', status: 'Upcoming' },
+  { id: 4, title: 'Data Science Workshop', date: 'Sep 20, 2025', time: '2:00 PM', status: 'Past' },
+];
+
+const ExploreSection = ({ navigate }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % mockEvents.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + mockEvents.length) % mockEvents.length);
+  };
+
+  // Autoplay functionality (optional)
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   const handleNavigation = (path) => {
-    // Example: navigate('/student/dashboard/jobs');
     alert(`Navigating to: ${path}`);
   };
 
   return (
     <div className="explore-section-container dashboard-section-card">
-      <h2 className="section-title">Explore Veritas Nexus</h2>
+      <h2 className="section-title">Community Hub</h2>
       <p className="section-description">Discover more features and opportunities to enhance your journey.</p>
 
-      <div className="explore-grid">
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/jobs')}>
-          <FaBriefcase className="explore-icon" />
-          <h3>Job & Internship Portal</h3>
-          <p>Find your next career step, posted by alumni.</p>
-          <button className="explore-item-button">Go to Jobs</button>
+      {/* Events Carousel */}
+      <div className="events-carousel-container">
+        <h3 className="carousel-title">Upcoming & Ongoing Events</h3>
+        <div className="carousel-wrapper">
+          <div className="carousel-inner" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+            {mockEvents.map((event, index) => (
+              <div key={event.id} className="carousel-item">
+                <div className="event-card">
+                  <div className={`event-status ${event.status.toLowerCase()}`}>
+                    {event.status}
+                  </div>
+                  <h4>{event.title}</h4>
+                  <p className="event-date">
+                    <FaCalendarAlt /> {event.date} at {event.time}
+                  </p>
+                  <button className="event-card-button">Learn More</button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/events')}>
-          <FaCalendarAlt className="explore-icon" />
-          <h3>Events & Meetups</h3>
-          <p>Connect at virtual and in-person community events.</p>
-          <button className="explore-item-button">View Events</button>
+        <div className="carousel-nav-buttons">
+          <button className="nav-button prev" onClick={prevSlide}>
+            <FaChevronLeft />
+          </button>
+          <button className="nav-button next" onClick={nextSlide}>
+            <FaChevronRight />
+          </button>
         </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/mentorship')}>
-          <FaGraduationCap className="explore-icon" />
-          <h3>Mentorship Program</h3>
-          <p>Accelerate your growth with experienced alumni mentors.</p>
-          <button className="explore-item-button">Find Mentors</button>
+        <div className="carousel-indicators">
+          {mockEvents.map((_, index) => (
+            <span
+              key={index}
+              className={`indicator ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(index)}
+            ></span>
+          ))}
         </div>
+      </div>
 
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/blogs')}>
-          <FaBook className="explore-icon" />
-          <h3>Blogs & Success Stories</h3>
-          <p>Read inspiring journeys and insights from our community.</p>
-          <button className="explore-item-button">Read Blogs</button>
-        </div>
+      {/* Main Explore Grid */}
+      <div className="explore-grid-container">
+        <div className="explore-grid">
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/jobs')}>
+            <FaBriefcase className="explore-icon" />
+            <h3>Job & Internship Portal</h3>
+            <p>Find your next career step, posted by alumni.</p>
+            <button className="explore-item-button">Go to Jobs</button>
+          </div>
 
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/announcements')}>
-          <FaBullhorn className="explore-icon" />
-          <h3>Announcements</h3>
-          <p>Stay updated with the latest institutional news and updates.</p>
-          <button className="explore-item-button">View Announcements</button>
-        </div>
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/mentorship')}>
+            <FaGraduationCap className="explore-icon" />
+            <h3>Mentorship Program</h3>
+            <p>Accelerate your growth with experienced alumni mentors.</p>
+            <button className="explore-item-button">Find Mentors</button>
+          </div>
 
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/skill-endorsements')}>
-          <FaStar className="explore-icon" />
-          <h3>Skill Endorsements</h3>
-          <p>Get recognized for your expertise by alumni and peers.</p>
-          <button className="explore-item-button">Endorse Skills</button>
-        </div>
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/blogs')}>
+            <FaBook className="explore-icon" />
+            <h3>Blogs & Success Stories</h3>
+            <p>Read inspiring journeys and insights from our community.</p>
+            <button className="explore-item-button">Read Blogs</button>
+          </div>
 
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/gamification')}>
-          <FaAward className="explore-icon" />
-          <h3>Gamification & Badges</h3>
-          <p>Earn recognition and climb leaderboards for your contributions.</p>
-          <button className="explore-item-button">View Badges</button>
-        </div>
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/announcements')}>
+            <FaBullhorn className="explore-icon" />
+            <h3>Announcements</h3>
+            <p>Stay updated with the latest institutional news and updates.</p>
+            <button className="explore-item-button">View Announcements</button>
+          </div>
+          
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/skill-endorsements')}>
+            <FaStar className="explore-icon" />
+            <h3>Skill Endorsements</h3>
+            <p>Get recognized for your expertise by alumni and peers.</p>
+            <button className="explore-item-button">Endorse Skills</button>
+          </div>
 
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/knowledge-capsules')}>
-          <FaLightbulb className="explore-icon" />
-          <h3>Knowledge Capsules</h3>
-          <p>Access short, actionable video/audio advice from alumni.</p>
-          <button className="explore-item-button">Explore Capsules</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/industry-navigator')}>
-          <FaGlobe className="explore-icon" />
-          <h3>Industry Navigator</h3>
-          <p>Visualize career paths and industry trends among alumni.</p>
-          <button className="explore-item-button">Explore Navigator</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/career-path-map')}>
-          <FaMapMarkedAlt className="explore-icon" />
-          <h3>University Footprint Map</h3>
-          <p>See the global presence of our alumni network.</p>
-          <button className="explore-item-button">View Map</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/settings')}>
-          <FaCog className="explore-icon" />
-          <h3>Settings</h3>
-          <p>Manage your account preferences and privacy settings.</p>
-          <button className="explore-item-button">Go to Settings</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/my-analytics')}>
-          <FaChartLine className="explore-icon" />
-          <h3>My Analytics</h3>
-          <p>Track your engagement and impact on Veritas Nexus.</p>
-          <button className="explore-item-button">View Analytics</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/skill-progression')}>
-          <FaCode className="explore-icon" />
-          <h3>Skill Progression Tree</h3>
-          <p>Visualize your skill development and growth journey.</p>
-          <button className="explore-item-button">View Tree</button>
-        </div>
-
-        <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/growth-goal-tracker')}>
-          <FaRocket className="explore-icon" />
-          <h3>Growth Goal Tracker</h3>
-          <p>Set and track your personal and professional goals.</p>
-          <button className="explore-item-button">Track Goals</button>
+          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/gamification')}>
+            <FaAward className="explore-icon" />
+            <h3>Gamification & Badges</h3>
+            <p>Earn recognition and climb leaderboards for your contributions.</p>
+            <button className="explore-item-button">View Badges</button>
+          </div>
         </div>
       </div>
     </div>

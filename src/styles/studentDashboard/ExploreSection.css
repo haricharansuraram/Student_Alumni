@@ -2,11 +2,177 @@
 
 /* Inherits .dashboard-section-card, .section-title, .section-description from StudentDashboard.css */
 
+/* Events Carousel Section */
+.events-carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0px; /* Removed margin-bottom */
+  background: linear-gradient(135deg, #fefefe, #fcfcfc);
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 10px; /* Increased padding */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  height: 350px; /* Increased height */
+}
+
+.carousel-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2d3748;
+  text-align: center;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.event-card {
+  background-color: #e6eaf3;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  padding: 25px; /* Increased padding */
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.event-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+.event-status.upcoming {
+  background-color: #3b82f6;
+}
+
+.event-status.ongoing {
+  background-color: #10b981;
+}
+
+.event-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.event-date {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.event-card-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.event-card-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.carousel-nav-buttons {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.carousel-nav-buttons .nav-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  color: #667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.carousel-nav-buttons .nav-button:hover {
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  background-color: #cbd5e0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+  background-color: #667eea;
+}
+
+/* Main Explore Grid Section */
+.explore-grid-container {
+  margin-top: 40px;
+}
+
 .explore-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Responsive grid */
   gap: 25px; /* Space between items */
-  margin-top: 30px;
 }
 
 .explore-item {
@@ -71,8 +237,15 @@
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2); /* Soft shadow on hover */
 }
 
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
+  .events-carousel-container {
+    padding: 20px;
+  }
+  .carousel-item {
+    padding: 0 5px;
+  }
   .explore-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
@@ -98,6 +271,34 @@
 }
 
 @media (max-width: 768px) {
+  .events-carousel-container {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+  .carousel-title {
+    font-size: 1.2rem;
+  }
+  .event-card {
+    padding: 15px;
+  }
+  .event-card h4 {
+    font-size: 1rem;
+  }
+  .event-date {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .event-card-button {
+    font-size: 0.8rem;
+  }
+  .carousel-nav-buttons .nav-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
   .explore-grid {
     grid-template-columns: 1fr; /* Stack items vertically on mobile */
     gap: 15px;
@@ -132,9 +333,38 @@
 }
 
 @media (max-width: 480px) {
+  .events-carousel-container {
+    padding: 12px;
+    margin-bottom: 25px;
+  }
+  .carousel-title {
+    font-size: 1rem;
+  }
+  .event-card {
+    padding: 12px;
+  }
+  .event-card h4 {
+    font-size: 0.9rem;
+  }
+  .event-date {
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+  .event-card-button {
+    font-size: 0.7rem;
+    padding: 8px 15px;
+  }
+  .carousel-nav-buttons .nav-button {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+  .explore-grid {
+    gap: 10px;
+  }
   .explore-item {
     padding: 15px;
-    gap: 10px;
+    flex-direction: row; /* Stack on mobile */
   }
   .explore-icon {
     font-size: 2.2rem;

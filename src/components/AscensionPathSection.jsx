@@ -25,17 +25,18 @@ const AscensionPathSection = () => {
       setLoading(true);
       setError(null);
       try {
-        const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user'));
-        if (!token || !user) {
+        const token = user ? user.token : null; // Get the token safely
+        
+        // FIX: Only proceed if a valid user and token exist
+        if (!token || !user || !user._id) {
           throw new Error('User not authenticated.');
         }
 
-        // Fetching profile using the authenticated user's ID
         const response = await fetch(`/api/profile/${user._id}`, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}` // This is the crucial line for authentication
           }
         });
 
@@ -60,7 +61,6 @@ const AscensionPathSection = () => {
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
     if (isEditing) {
-      // On cancel, revert editedProfile back to the last saved state
       setEditedProfile(profile);
     }
   };
@@ -71,21 +71,22 @@ const AscensionPathSection = () => {
     setError(null);
 
     try {
-        const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user'));
+        const token = user ? user.token : null;
+        
         if (!token || !user) {
           throw new Error('User not authenticated.');
         }
 
         const response = await fetch('/api/profile', {
-            method: 'POST', // Or PUT, depending on your API design
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 ...editedProfile,
-                skills: editedProfile.skills.join(', ') // Convert back to string for API
+                skills: editedProfile.skills.join(', ')
             })
         });
 
@@ -151,7 +152,7 @@ const AscensionPathSection = () => {
 
       <div className="profile-header-section">
         <FaUserCircle className="profile-avatar" />
-        <h3>{profile.user.name}</h3> {/* Display name from the populated user object */}
+        <h3>{profile.user.name}</h3>
         <p className="profile-meta">{profile.branch} | Batch {profile.batch}</p>
         <button className="edit-profile-button" onClick={handleEditToggle}>
           {isEditing ? <FaTimes /> : <FaEdit />} {isEditing ? 'Cancel Edit' : 'Edit Profile'}
