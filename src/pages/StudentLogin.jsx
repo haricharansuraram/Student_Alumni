@@ -100,9 +100,6 @@ const StudentLogin = () => {
     alert('Forgot Password functionality is under development.');
   };
 
-  const handleGetActivationLink = () => {
-    alert('Get Activation Link functionality is under development.');
-  };
 
   return (
     <div className="login-container">
@@ -165,14 +162,6 @@ const StudentLogin = () => {
                 disabled={isLoading}
               >
                 Forgot Password?
-              </button>
-              <button
-                type="button"
-                className="link-button"
-                onClick={handleGetActivationLink}
-                disabled={isLoading}
-              >
-                Get Activation Link
               </button>
             </div>
             <button
