@@ -25,8 +25,11 @@ const AlumniForgeSection = () => {
       setLoading(true);
       setError(null);
       try {
-        const token = localStorage.getItem('token');
-        if (!token) {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user ? user.token : null;
+        
+        // FIX: The API call will now only run if a valid token exists
+        if (!token || !user || !user._id) {
           throw new Error('User not authenticated.');
         }
 
@@ -39,12 +42,14 @@ const AlumniForgeSection = () => {
         const response = await fetch(`/api/alumni?${queryParams.toString()}`, {
           headers: {
             'Content-Type': 'application/json',
+            // CRUCIAL FIX: Attach the token to the Authorization header
             'Authorization': `Bearer ${token}`
           }
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch alumni data.');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to fetch alumni data.');
         }
 
         const data = await response.json();
@@ -67,39 +72,16 @@ const AlumniForgeSection = () => {
       <h2 className="section-title">Alumni Forge</h2>
       <p className="section-description">Discover and connect with our esteemed alumni. Leverage their experience to shape your future.</p>
 
-      <div className="alumni-search-filter">
-        <input
-          type="text"
-          placeholder="Search alumni by name, industry, skills..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
-        <button className="search-button"><FaSearch /> Search</button>
-        <select value={selectedBatch} onChange={(e) => setSelectedBatch(e.target.value)} className="filter-select">
-          <option value="">All Batches</option>
-          {batchYears.map(year => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </select>
-        <select value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)} className="filter-select">
-          <option value="">All Industries</option>
-          {uniqueIndustries.map(industry => (
-            <option key={industry} value={industry}>{industry}</option>
-          ))}
-        </select>
-      </div>
-
       {loading && <p className="loading-message">Loading alumni...</p>}
       {error && <p className="error-message">{error}</p>}
 
       {!loading && !error && alumniList.length > 0 ? (
         <div className="alumni-list-grid">
           {alumniList.map(alum => (
-            <div key={alum._id} className="alumni-card">
+            <div key={alum.id} className="alumni-card">
               <FaUserCircle className="alumni-avatar" />
-              <h3>{alum.user.name}</h3>
-              <p className="alumni-meta">{alum.jobTitle} @ {alum.company} | Batch {alum.batch}</p>
+              <h3>{alum.name}</h3>
+              <p className="alumni-meta">{alum.meta}</p>
               <p className="alumni-bio">{alum.bio}</p>
               <div className="alumni-card-actions">
                 <button className="connect-button"><FaHandshake /> Connect</button>

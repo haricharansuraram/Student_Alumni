@@ -103,6 +103,7 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
+      // Step 1: Create User
       const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
@@ -113,6 +114,10 @@ const SignUp = () => {
           email: formData.email,
           password: formData.password,
           role: formData.role,
+          batch: formData.batch,
+          profession: formData.profession,
+          location: formData.location,
+          phone: formData.phone,
         }),
       });
 
@@ -121,6 +126,37 @@ const SignUp = () => {
       if (!response.ok) {
         throw new Error(userData.message || 'Registration failed.');
       }
+
+      // Step 2: Create Profile for the new user (optional, only if needed)
+      // If your backend already creates a profile, you can skip this step.
+      // If not, uncomment and use the following code:
+
+      /*
+      const profileResponse = await fetch('/api/profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userData.token}`,
+        },
+        body: JSON.stringify({
+          userId: userData.user._id,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          role: formData.role,
+          batch: formData.batch || '',
+          profession: formData.profession || '',
+          location: formData.location || '',
+          phone: formData.phone || '',
+        }),
+      });
+
+      const profileData = await profileResponse.json();
+
+      if (!profileResponse.ok) {
+        throw new Error(profileData.message || 'Profile creation failed.');
+      }
+      */
 
       alert('Registration successful! Please log in.');
       navigate('/select-role');
@@ -405,5 +441,4 @@ const SignUp = () => {
     </div>
   );
 };
-
 export default SignUp;

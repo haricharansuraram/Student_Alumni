@@ -21,42 +21,34 @@ const AscensionPathSection = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user ? user.token : null; // Get the token safely
-        
-        // FIX: Only proceed if a valid user and token exist
-        if (!token || !user || !user._id) {
-          throw new Error('User not authenticated.');
-        }
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user ? user.token : null;
+  const userId = user ? user._id : null;
 
-        const response = await fetch(`/api/profile/${user._id}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // This is the crucial line for authentication
-          }
-        });
+  if (!token || !userId) {
+    setError('User not authenticated.');
+    return;
+  }
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch profile data.');
-        }
+  setLoading(true);
+  fetch(`/api/profile/${userId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to fetch profile');
+      return res.json();
+    })
+    .then(data => {
+      setProfile(data);
+      setEditedProfile(data);
+    })
+    .catch(err => setError(err.message))
+    .finally(() => setLoading(false));
+}, []);
 
-        const data = await response.json();
-        setProfile(data);
-        setEditedProfile(data);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, []);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -91,7 +83,8 @@ const AscensionPathSection = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to save profile.');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to save profile.');
         }
 
         const updatedProfile = await response.json();
