@@ -63,11 +63,26 @@ const StudentLogin = () => {
         throw new Error(userData.message || 'Login failed.');
       }
 
-      localStorage.setItem('user', JSON.stringify({
-        email: userData.email,
-        role: userData.role,
-        token: userData.token,
-      }));
+// ...existing code...
+localStorage.setItem('user', JSON.stringify({
+  token: userData.token,
+  ...userData.user
+}));
+
+switch (userData.user.role.toLowerCase()) {
+  case 'student':
+    navigate('/student/dashboard');
+    break;
+  case 'alumni':
+    navigate('/alumni/dashboard');
+    break;
+  case 'admin':
+    navigate('/admin/dashboard');
+    break;
+  default:
+    setError('Invalid user role received from server.');
+}
+// ...existing code...
 
       // FIX: Use toLowerCase() for a case-insensitive role check
       switch (userData.role.toLowerCase()) {
@@ -100,6 +115,9 @@ const StudentLogin = () => {
     alert('Forgot Password functionality is under development.');
   };
 
+  const handleGetActivationLink = () => {
+    alert('Get Activation Link functionality is under development.');
+  };
 
   return (
     <div className="login-container">
@@ -163,6 +181,14 @@ const StudentLogin = () => {
               >
                 Forgot Password?
               </button>
+              <button
+                type="button"
+                className="link-button"
+                onClick={() => alert('Get Activation Link functionality is under development.')}
+                disabled={isLoading}
+              >
+                Get Activation Link
+              </button>
             </div>
             <button
               type="submit"
@@ -192,14 +218,14 @@ const StudentLogin = () => {
               </div>
               <div className="benefit-item">
                 <span className="benefit-icon">✨</span>
-                <div className="benefit-text">
+                <div class="benefit-text">
                   <h3>Discover Opportunities</h3>
                   <p>Find internships, projects, and events relevant to your studies and career path.</p>
                 </div>
               </div>
-              <div className="benefit-item">
-                <span className="benefit-icon">🌱</span>
-                <div className="benefit-text">
+              <div class="benefit-item">
+                <span class="benefit-icon">🌱</span>
+                <div class="benefit-text">
                   <h3>Grow Your Skills</h3>
                   <p>Access resources and mentorship to develop your professional and personal abilities.</p>
                 </div>
