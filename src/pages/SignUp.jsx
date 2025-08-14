@@ -39,26 +39,22 @@ const SignUp = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required';
     } else if (formData.firstName.length < 2) {
       newErrors.firstName = 'First name must be at least 2 characters';
     }
-
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required';
     } else if (formData.lastName.length < 2) {
       newErrors.lastName = 'Last name must be at least 2 characters';
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
@@ -66,44 +62,35 @@ const SignUp = () => {
     } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
       newErrors.password = 'Password must contain uppercase, lowercase, and number';
     }
-
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-
     if (formData.role === 'student' && !formData.batch) {
       newErrors.batch = 'Batch year is required for students';
     }
-
     if (formData.role === 'alumni' && !formData.profession) {
       newErrors.profession = 'Profession is required for alumni';
     }
-
     if (formData.phone && !/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Please enter a valid phone number';
     }
-
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = 'You must agree to the terms and conditions';
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       return;
     }
-
     setIsLoading(true);
-
     try {
-      // Step 1: Create User
+      // Send all alumni fields if role is alumni
       const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
@@ -127,41 +114,11 @@ const SignUp = () => {
         throw new Error(userData.message || 'Registration failed.');
       }
 
-      // Step 2: Create Profile for the new user (optional, only if needed)
-      // If your backend already creates a profile, you can skip this step.
-      // If not, uncomment and use the following code:
-
-      /*
-      const profileResponse = await fetch('/api/profiles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userData.token}`,
-        },
-        body: JSON.stringify({
-          userId: userData.user._id,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          role: formData.role,
-          batch: formData.batch || '',
-          profession: formData.profession || '',
-          location: formData.location || '',
-          phone: formData.phone || '',
-        }),
-      });
-
-      const profileData = await profileResponse.json();
-
-      if (!profileResponse.ok) {
-        throw new Error(profileData.message || 'Profile creation failed.');
-      }
-      */
+      // Alumni data will be inserted in backend if role is alumni
 
       alert('Registration successful! Please log in.');
       navigate('/select-role');
     } catch (error) {
-      console.error('Signup failed:', error);
       setErrors({ global: error.message });
     } finally {
       setIsLoading(false);
@@ -441,4 +398,5 @@ const SignUp = () => {
     </div>
   );
 };
+
 export default SignUp;

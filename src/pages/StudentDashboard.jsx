@@ -1,44 +1,32 @@
-// src/pages/StudentDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   FaUser, FaComments, FaAddressBook, FaUserFriends, FaEllipsisH,
-  FaSignOutAlt, FaCog, FaHome, FaBriefcase, FaGraduationCap, FaCalendarAlt,
-  FaLightbulb, FaBullhorn, FaBook, FaChartLine, FaGlobe, FaRocket, FaHandshake, FaCode, FaMapMarkedAlt, FaStar, FaAward
+  FaSignOutAlt, FaCog
 } from 'react-icons/fa';
-import '../styles/StudentDashboard.css'; // Main dashboard layout CSS
+import '../styles/StudentDashboard.css';
 
-// Import the individual section components
-// Assuming these components are now created directly under src/components/
 import ExploreSection from '../components/ExploreSection';
 import AlumniForgeSection from '../components/AlumniForgeSection';
 import MyQuadSection from '../components/MyQuadSection';
 import EchoChamberSection from '../components/EchoChamberSection';
 import AscensionPathSection from '../components/AscensionPathSection';
 
-// Import your actual user avatar image here
-// IMPORTANT: Replace './path/to/your/user_avatar.png' with the correct path
-import userAvatarImage from '../assets/user1.jpeg'; // <--- YOU NEED TO UPDATE THIS PATH
-
-// REMOVED: FaUserCircle helper component is no longer needed here
-// as FaUser will be directly styled in CSS.
-
+import userAvatarImage from '../assets/user1.jpeg';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  // Initialize selectedTab based on the new desired default order: 'alumni'
   const [selectedTab, setSelectedTab] = useState('alumni');
+  const [selectedChatUser, setSelectedChatUser] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      // Check if the user's role is Student before setting the state
       if (parsedUser.role.toLowerCase() === 'student') {
         setUser(parsedUser);
       } else {
-        // If the user's role is not student, log them out and redirect
         localStorage.removeItem('user');
         navigate('/select-role');
       }
@@ -48,25 +36,32 @@ const StudentDashboard = () => {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('user'); // Clear user data
-    navigate('/'); // Redirect to home/login page
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
-  // Function to render the content based on the selected tab
+  // Pass onMessageClick to AlumniForgeSection and selectedChatUser to EchoChamberSection
   const renderContent = () => {
     switch (selectedTab) {
-      case 'alumni': // FIRST: Alumni Forge
-        return <AlumniForgeSection />;
-      case 'chats': // SECOND: Echo Chamber (Chats)
-        return <EchoChamberSection />;
-      case 'explore': // THIRD: Explore Veritas Nexus
+      case 'alumni':
+        return (
+          <AlumniForgeSection
+            onMessageClick={(alumniUser) => {
+              setSelectedChatUser(alumniUser);
+              setSelectedTab('chats');
+            }}
+          />
+        );
+      case 'chats':
+        return <EchoChamberSection selectedChatUser={selectedChatUser} />;
+      case 'explore':
         return <ExploreSection />;
-      case 'connections': // FOURTH: My Quad (Connections)
+      case 'connections':
         return <MyQuadSection />;
-      case 'profile': // FIFTH: Ascension Path (Profile)
+      case 'profile':
         return <AscensionPathSection />;
       default:
-        return <AlumniForgeSection />; // Fallback to Alumni Forge
+        return <AlumniForgeSection />;
     }
   };
 
@@ -82,7 +77,6 @@ const StudentDashboard = () => {
         <div className="header-right">
           {user && (
             <div className="user-info-dropdown">
-              {/* MODIFIED: Using img tag with userAvatarImage */}
               <img src={userAvatarImage} alt="User Avatar" className="header-avatar" />
               <span className="user-name">{user.email ? user.email.split('@')[0] : 'User'}</span>
               <div className="dropdown-content">
@@ -101,14 +95,13 @@ const StudentDashboard = () => {
         </div>
       </header>
 
-      {/* Main Content Area - This will scroll if content overflows */}
+      {/* Main Content Area */}
       <main className="main-dashboard-content">
         {renderContent()}
       </main>
 
-      {/* Bottom Navigation (Primary Dashboard Navigation) */}
+      {/* Bottom Navigation */}
       <footer className="bottom-nav">
-        {/* Buttons reordered to match the new tab order */}
         <button
           className={`bottom-nav-btn ${selectedTab === 'alumni' ? 'active' : ''}`}
           onClick={() => setSelectedTab('alumni')}
@@ -141,7 +134,7 @@ const StudentDashboard = () => {
           className={`bottom-nav-btn ${selectedTab === 'profile' ? 'active' : ''}`}
           onClick={() => setSelectedTab('profile')}
         >
-          <FaUser /> {/* This is the FaUser icon you're referring to */}
+          <FaUser />
           <span>Profile</span>
         </button>
       </footer>
