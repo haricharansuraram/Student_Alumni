@@ -15,7 +15,7 @@ import ProfileCard from './pages/ProfileCard';
 import AlumniDetail from './pages/AlumniDetail';
 import ChatPage from './pages/ChatPage';
 import ChatsList from './pages/ChatsList'; // NEW: Import the chats list page
-
+import EchoChamberSection from './components/EchoChamberSection'; 
 function App() {
   return (
     <Routes>
@@ -33,7 +33,8 @@ function App() {
         <Route path="alumni" element={<AlumniPage />} />
         <Route path="connections" element={<MyConnections />} />
         <Route path="chats" element={<ChatsList />} /> {/* UPDATED: Show chats list */}
-        <Route path="chats/:id" element={<ChatPage />} />
+        <Route path="chats/:id" element={<EchoChamberSection />} />
+        <Route path="chats/:userId" element={<EchoChamberSection/>} />
         <Route path="profile" element={<ProfileCard />} />
       </Route>
       <Route path="/directory" element={<AlumniDirectory />} />

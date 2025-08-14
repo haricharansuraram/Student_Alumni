@@ -140,7 +140,7 @@ const AscensionPathSection = () => {
 
   return (
     <div className="ascension-path-container dashboard-section-card">
-      <h2 className="section-title">Ascension Path (My Profile)</h2>
+      <h2 className="section-title">My Profile</h2>
       <p className="section-description">Your living growth journey within Veritas Nexus. Showcase your progress and aspirations.</p>
 
       <div className="profile-header-section">
