@@ -367,3 +367,54 @@
     padding: 8px 15px;
   }
 }
+
+
+
+/* --- Enhanced Search Bar Styling --- */
+.alumni-search-filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.alumni-search-filters input {
+  width: 100%;
+  max-width: 450px;
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 50px; /* Smooth pill shape */
+  font-size: 1rem;
+  background: #ffffff;
+  color: #2d3748;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.alumni-search-filters input::placeholder {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.alumni-search-filters input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.2);
+  background: #f9faff; /* Light blue focus background */
+  transform: translateY(-1px);
+}
+
+/* Optional search icon inside */
+.alumni-search-filters::before {
+  content: "🔍";
+  position: absolute;
+  left: 205px;
+  top: 65%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #a0aec0;
+  pointer-events: none;
+}
+.alumni-search-filters input {
+  padding-left: 45px; /* Space for icon */
+}

@@ -18,6 +18,7 @@ const AlumniForgeSection = ({ onMessageClick }) => {
   const batchYears = Array.from({ length: 20 }, (_, i) => currentYear - i).map(String);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +63,12 @@ const AlumniForgeSection = ({ onMessageClick }) => {
 
   return (
     <div className="alumni-forge-container dashboard-section-card">
+      {/* Notification */}
+      {notification && (
+        <div className="notification-popup">
+          {notification}
+        </div>
+      )}
       <h2 className="section-title">Alumni Forge</h2>
       <p className="section-description">Discover and connect with our esteemed alumni. Leverage their experience to shape your future.</p>
       <div className="alumni-search-filters">
@@ -82,7 +89,6 @@ const AlumniForgeSection = ({ onMessageClick }) => {
               key={alum._id}
               className="alumni-card"
               onClick={e => {
-                // Prevent navigation if a button was clicked
                 if (
                   e.target.closest('.connect-button') ||
                   e.target.closest('.message-button')
@@ -98,7 +104,11 @@ const AlumniForgeSection = ({ onMessageClick }) => {
               <div className="alumni-card-actions">
                 <button
                   className="connect-button"
-                  onClick={e => e.stopPropagation()}
+                  onClick={e => {
+                    e.stopPropagation();
+                    setNotification('Connection request sent!');
+                    setTimeout(() => setNotification(''), 2000);
+                  }}
                 >
                   <FaHandshake /> Connect
                 </button>

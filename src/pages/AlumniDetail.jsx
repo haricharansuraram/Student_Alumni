@@ -1,113 +1,121 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FaUser, FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaLink, FaHandshake, FaComments } from 'react-icons/fa';
 import '../styles/AlumniDetail.css';
-const AlumniDetail = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [alumni, setAlumni] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchAlumni = async () => {
-      setLoading(true);
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user ? user.token : null;
-        const res = await fetch(`/api/alumni/${id}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (!res.ok) throw new Error('Alumni not found');
-        const data = await res.json();
-        setAlumni(data);
-      } catch (err) {
-        setAlumni(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAlumni();
-  }, [id]);
-
-  if (loading) return <div>Loading...</div>;
-  if (!alumni) return <div>Alumni not found</div>;
-
-  const {
-    img,
-    name,
-    batch,
-    jobTitle,
-    location,
-    education,
-    degree,
-    experience,
-    qualification,
-    passedOut,
-    skills
-  } = alumni;
-
-  return (
-    <div style={{ minHeight: '100vh', position: 'relative', background: '#f7f9fb' }}>
-      {/* Back button at top left */}
-      <button
-        onClick={() => navigate(-1)}
-        style={{
-          position: 'absolute',
-          top: 24,
-          left: 24,
-          background: 'none',
-          border: 'none',
-          color: '#1976d2',
-          fontSize: 22,
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          zIndex: 2
-        }}
-      >
-        <span style={{ fontSize: 24, marginRight: 6 }}>←</span> Back
-      </button>
-      {/* Centered content */}
-      <div
-        className="alumni-detail-container"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100vh'
-        }}
-      >
-        {img && <img src={img} alt={name} className="alumni-img-large" />}
-        <h2>{name}</h2>
-        <p><strong>Job Title:</strong> {jobTitle}</p>
-        <p><strong>Education:</strong> {education}</p>
-        <p><strong>Degree:</strong> {degree}</p>
-        <p><strong>Experience:</strong> {experience}</p>
-        <p><strong>Batch Year:</strong> {passedOut}</p>
-        <p><strong>Skills:</strong> {skills && Array.isArray(skills) ? skills.join(', ') : skills}</p>
-        <p><strong>Location:</strong> {location}</p>
-        <div className="alumni-card-actions">
-          <button className="connect-btn">Connect</button>
-          <button
-            className="message-btn"
-            onClick={() =>
-              navigate(`/student/dashboard/chats/${alumni._id}`, {
-                state: {
-                  selectedChatUser: {
-                    id: alumni._id,
-                    name: alumni.name,
-                    avatar: alumni.avatar
-                  }
-                }
-              })
-            }
-          >
-            Message
-          </button>
-        </div>
-      </div>
+const FaUserCircle = ({ className }) => (
+    <div className={`user-circle-avatar ${className}`}>
+        <FaUser />
     </div>
-  );
+);
+
+const AlumniDetail = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [alumni, setAlumni] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [notification, setNotification] = useState('');
+
+    useEffect(() => {
+        const fetchAlumni = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                const token = user ? user.token : null;
+
+                if (!token || !user) {
+                    throw new Error('User not authenticated.');
+                }
+
+                const res = await fetch(`/api/alumni/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.message || 'Alumni not found');
+                }
+                const data = await res.json();
+                setAlumni(data);
+            } catch (err) {
+                console.error("Error fetching alumni:", err);
+                setError(err.message);
+                setAlumni(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAlumni();
+    }, [id]);
+
+    if (loading) return <div className="detail-loading-message">Loading...</div>;
+    if (error) return <div className="detail-error-message">{error}</div>;
+    if (!alumni) return <div className="detail-not-found-message">Alumni not found</div>;
+
+    const {
+        name,
+        batch,
+        jobTitle,
+        location,
+        education,
+        degree,
+        experience,
+        qualification,
+        passedOut,
+        skills
+    } = alumni;
+
+    return (
+        <div className="alumni-detail-page-container">
+            {/* Notification */}
+            {notification && (
+                <div className="notification-popup">
+                    {notification}
+                </div>
+            )}
+            {/* Back button at top left */}
+            <button onClick={() => navigate(-1)} className="back-button">
+                <span>←</span> Back
+            </button>
+            {/* Centered content */}
+            <div className="alumni-detail-card">
+                <FaUserCircle className="alumni-detail-avatar" />
+                <h2 className="alumni-name">{name}</h2>
+                <p className="alumni-job-title">{jobTitle}</p>
+                <p className="alumni-location"><strong>Location:</strong> {location}</p>
+                <div className="alumni-info-grid">
+                    <p><strong>Batch:</strong> {batch}</p>
+                    <p><strong>Education:</strong> {education}</p>
+                    <p><strong>Degree:</strong> {degree}</p>
+                    <p><strong>Experience:</strong> {experience}</p>
+                    <p><strong>Qualification:</strong> {qualification}</p>
+                    <p><strong>Passed Out:</strong> {passedOut}</p>
+                </div>
+                <div className="skills-section">
+                    <h3>Skills</h3>
+                    <div className="skills-list">
+                        {skills && Array.isArray(skills) && skills.map((skill, index) => (
+                            <span key={index} className="skill-tag">{skill}</span>
+                        ))}
+                    </div>
+                </div>
+                <div className="alumni-card-actions">
+                    <button
+                        className="connect-btn"
+                        onClick={() => {
+                            setNotification('Connection request sent!');
+                            setTimeout(() => setNotification(''), 2000);
+                        }}
+                    >
+                        <FaHandshake /> Connect
+                    </button>
+                    <button className="message-btn"><FaComments /> Message</button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default AlumniDetail;
