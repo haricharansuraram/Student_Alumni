@@ -17,6 +17,15 @@ const SignUp = () => {
     profession: '',
     location: '',
     phone: '',
+    // Alumni fields
+    jobTitle: '',
+    education: '',
+    degree: '',
+    experience: '',
+    qualification: '',
+    passedOut: '',
+    skills: '',
+    img: '',
     agreeToTerms: false,
   });
   const [errors, setErrors] = useState({});
@@ -90,22 +99,36 @@ const SignUp = () => {
     }
     setIsLoading(true);
     try {
-      // Send all alumni fields if role is alumni
+      // Prepare payload
+      const payload = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+        batch: formData.batch,
+        profession: formData.profession,
+        location: formData.location,
+        phone: formData.phone,
+      };
+
+      // Add alumni fields if role is alumni
+      if (formData.role === 'alumni') {
+        payload.jobTitle = formData.jobTitle;
+        payload.education = formData.education;
+        payload.degree = formData.degree;
+        payload.experience = formData.experience;
+        payload.qualification = formData.qualification;
+        payload.passedOut = formData.passedOut;
+        payload.skills = formData.skills.split(',').map(s => s.trim()).filter(Boolean);
+        payload.img = formData.img;
+      }
+
       const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          password: formData.password,
-          role: formData.role,
-          batch: formData.batch,
-          profession: formData.profession,
-          location: formData.location,
-          phone: formData.phone,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const userData = await response.json();
@@ -113,8 +136,6 @@ const SignUp = () => {
       if (!response.ok) {
         throw new Error(userData.message || 'Registration failed.');
       }
-
-      // Alumni data will be inserted in backend if role is alumni
 
       alert('Registration successful! Please log in.');
       navigate('/select-role');
@@ -309,19 +330,109 @@ const SignUp = () => {
                 </div>
               )}
               {formData.role === 'alumni' && (
-                <div className="form-group">
-                  <label htmlFor="profession">Profession *</label>
-                  <input
-                    type="text"
-                    id="profession"
-                    name="profession"
-                    value={formData.profession}
-                    onChange={handleInputChange}
-                    className={errors.profession ? 'error' : ''}
-                    placeholder="e.g., Software Engineer, Marketing Manager"
-                  />
-                  {errors.profession && <span className="error-message">{errors.profession}</span>}
-                </div>
+                <>
+                  <div className="form-group">
+                    <label htmlFor="profession">Profession *</label>
+                    <input
+                      type="text"
+                      id="profession"
+                      name="profession"
+                      value={formData.profession}
+                      onChange={handleInputChange}
+                      className={errors.profession ? 'error' : ''}
+                      placeholder="e.g., Software Engineer, Marketing Manager"
+                    />
+                    {errors.profession && <span className="error-message">{errors.profession}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="jobTitle">Job Title</label>
+                    <input
+                      type="text"
+                      id="jobTitle"
+                      name="jobTitle"
+                      value={formData.jobTitle}
+                      onChange={handleInputChange}
+                      placeholder="e.g., Senior Developer"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="education">Education</label>
+                    <input
+                      type="text"
+                      id="education"
+                      name="education"
+                      value={formData.education}
+                      onChange={handleInputChange}
+                      placeholder="e.g., B.Tech in CSE"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="degree">Degree</label>
+                    <input
+                      type="text"
+                      id="degree"
+                      name="degree"
+                      value={formData.degree}
+                      onChange={handleInputChange}
+                      placeholder="e.g., M.Tech"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="experience">Experience</label>
+                    <input
+                      type="text"
+                      id="experience"
+                      name="experience"
+                      value={formData.experience}
+                      onChange={handleInputChange}
+                      placeholder="e.g., 5 years"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="qualification">Qualification</label>
+                    <input
+                      type="text"
+                      id="qualification"
+                      name="qualification"
+                      value={formData.qualification}
+                      onChange={handleInputChange}
+                      placeholder="e.g., MBA"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="passedOut">Passed Out Year</label>
+                    <input
+                      type="text"
+                      id="passedOut"
+                      name="passedOut"
+                      value={formData.passedOut}
+                      onChange={handleInputChange}
+                      placeholder="e.g., 2020"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="skills">Skills (comma separated)</label>
+                    <input
+                      type="text"
+                      id="skills"
+                      name="skills"
+                      value={formData.skills}
+                      onChange={handleInputChange}
+                      placeholder="e.g., JavaScript, React, Node.js"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="img">Profile Image URL</label>
+                    <input
+                      type="text"
+                      id="img"
+                      name="img"
+                      value={formData.img}
+                      onChange={handleInputChange}
+                      placeholder="Paste image URL"
+                    />
+                  </div>
+                </>
               )}
               <div className="form-group">
                 <label htmlFor="location">Location</label>
