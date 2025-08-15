@@ -1,70 +1,224 @@
-.alumni-detail-container {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 420px;
-  margin: 80px auto 32px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 500px;
+/* src/styles/AlumniDetail.css */
+
+.alumni-detail-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f2f7 0%, #d1e2e8 100%);
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    position: relative;
 }
 
-.alumni-img-large {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 1.2rem;
-  border: 3px solid #1976d2;
-  background: #e3eafc;
+.back-button {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.alumni-detail-container h2 {
-  margin: 0.5rem 0 0.8rem 0;
-  font-size: 2rem;
-  color: #1976d2;
-  font-weight: 600;
+.back-button:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.alumni-detail-container p {
-  margin: 0.2rem 0;
-  font-size: 1.08rem;
-  color: #333;
+.alumni-detail-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    max-width: 500px; /* Increased max-width */
+    width: 100%;
+    margin-top: 80px; /* Space from the top header */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.alumni-detail-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1.2rem;
+    border: 3px solid #667eea; /* Consistent primary color border */
+    background: #e3eafc; /* Light background for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem; /* Icon size */
+    color: #667eea;
+}
+
+.alumni-name {
+    margin: 0.5rem 0 0.5rem 0;
+    font-size: 2.2rem;
+    color: #2d3748;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.alumni-job-title,
+.alumni-location {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.alumni-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 2rem;
+    width: 100%;
+    text-align: left;
+}
+
+.alumni-info-grid p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+.skills-section {
+    margin-top: 2rem;
+    width: 100%;
+    text-align: left;
+}
+
+.skills-section h3 {
+    font-size: 1.2rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background-color: #e6eaf3;
+    color: #667eea;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 .alumni-card-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 1.2rem;
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
 }
 
 .connect-btn,
 .message-btn {
-  background: #1976d2;
-  color: #fff;
-  border: none;
-  border-radius: 22px;
-  padding: 0.5rem 1.4rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-weight: 500;
+    background: #667eea; /* Start with primary color */
+    color: #fff;
+    border: none;
+    border-radius: 22px;
+    padding: 0.75rem 1.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    justify-content: center; /* Center the text */
 }
 
-.connect-btn:hover,
+.connect-btn:hover {
+    background: #556ee6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.message-btn {
+    background: linear-gradient(135deg, #10b981, #059669); /* Green gradient */
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
 .message-btn:hover {
-  background: #1251a3;
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
 }
 
 @media (max-width: 600px) {
-  .alumni-detail-container {
-    max-width: 98vw;
-    padding: 1.2rem 0.5rem;
-  }
-  .alumni-img-large {
-    width: 90px;
-    height: 90px;
-  }
+    .alumni-detail-card {
+        padding: 1.5rem;
+        margin-top: 50px;
+    }
+    .alumni-detail-avatar {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+    }
+    .alumni-name {
+        font-size: 1.8rem;
+    }
+    .alumni-job-title,
+    .alumni-location {
+        font-size: 0.9rem;
+    }
+    .alumni-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .alumni-card-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .connect-btn, .message-btn {
+        width: 100%;
+        padding: 0.6rem 1.2rem;
+    }
+}
+/* Add to AlumniDetail.css and AlumniForgeSection.css */
+.notification-popup {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: #1976d2;
+  color: #fff;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  font-size: 1.1rem;
+  z-index: 9999;
+  animation: fadeInOut 2s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px);}
+  10% { opacity: 1; transform: translateY(0);}
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px);}
 }
