@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaHandshake, FaComments, FaUser, FaLightbulb, FaGlobe } from 'react-icons/fa';
 import '../styles/studentDashboard/AlumniForgeSection.css';
+import { useNavigate } from 'react-router-dom';
 
 const FaUserCircle = ({ className }) => (
   <div className={`user-circle-avatar ${className}`}>
@@ -8,7 +9,6 @@ const FaUserCircle = ({ className }) => (
   </div>
 );
 
-// Accept onMessageClick as a prop from parent (StudentDashboard)
 const AlumniForgeSection = ({ onMessageClick }) => {
   const [alumniList, setAlumniList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,6 +18,7 @@ const AlumniForgeSection = ({ onMessageClick }) => {
   const batchYears = Array.from({ length: 20 }, (_, i) => currentYear - i).map(String);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAlumni = async () => {
@@ -53,7 +54,6 @@ const AlumniForgeSection = ({ onMessageClick }) => {
     fetchAlumni();
   }, [searchTerm, selectedBatch, selectedIndustry]);
 
-  // Filter alumni list by search term, batch, and industry
   const filteredAlumni = alumniList.filter(alum =>
     alum.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (selectedBatch ? alum.batch === selectedBatch : true) &&
@@ -64,8 +64,6 @@ const AlumniForgeSection = ({ onMessageClick }) => {
     <div className="alumni-forge-container dashboard-section-card">
       <h2 className="section-title">Alumni Forge</h2>
       <p className="section-description">Discover and connect with our esteemed alumni. Leverage their experience to shape your future.</p>
-      
-      {/* Search and filter controls */}
       <div className="alumni-search-filters">
         <input
           type="text"
@@ -73,7 +71,6 @@ const AlumniForgeSection = ({ onMessageClick }) => {
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
-        
       </div>
 
       {loading && <p className="loading-message">Loading alumni...</p>}
@@ -81,23 +78,41 @@ const AlumniForgeSection = ({ onMessageClick }) => {
       {!loading && !error && filteredAlumni.length > 0 ? (
         <div className="alumni-list-grid">
           {filteredAlumni.map(alum => (
-            <div key={alum._id} className="alumni-card">
+            <div
+              key={alum._id}
+              className="alumni-card"
+              onClick={e => {
+                // Prevent navigation if a button was clicked
+                if (
+                  e.target.closest('.connect-button') ||
+                  e.target.closest('.message-button')
+                ) return;
+                navigate(`/student/dashboard/alumni/${alum._id}`);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
               <FaUserCircle className="alumni-avatar" />
               <h3>{alum.name}</h3>
               <p className="alumni-meta">{alum.jobTitle} | {alum.batch} | {alum.industry}</p>
               <p className="alumni-location">{alum.location}</p>
               <div className="alumni-card-actions">
-                <button className="connect-button"><FaHandshake /> Connect</button>
+                <button
+                  className="connect-button"
+                  onClick={e => e.stopPropagation()}
+                >
+                  <FaHandshake /> Connect
+                </button>
                 <button
                   className="message-button"
-                  onClick={() =>
+                  onClick={e => {
+                    e.stopPropagation();
                     onMessageClick &&
-                    onMessageClick({
-                      id:alum._id,
-                      name: alum.name,
-                      avatar: alum.avatar // if available
-                    })
-                  }
+                      onMessageClick({
+                        id: alum._id,
+                        name: alum.name,
+                        avatar: alum.avatar
+                      });
+                  }}
                 >
                   <FaComments /> Message
                 </button>

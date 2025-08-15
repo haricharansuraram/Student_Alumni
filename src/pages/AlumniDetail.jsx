@@ -1,17 +1,41 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import '../styles/AlumniDetail.css';
 const AlumniDetail = () => {
-  const { state } = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [alumni, setAlumni] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!state || !state.alumni) return <div>Alumni not found</div>;
+  useEffect(() => {
+    const fetchAlumni = async () => {
+      setLoading(true);
+      try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user ? user.token : null;
+        const res = await fetch(`/api/alumni/${id}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Alumni not found');
+        const data = await res.json();
+        setAlumni(data);
+      } catch (err) {
+        setAlumni(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAlumni();
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!alumni) return <div>Alumni not found</div>;
 
   const {
     img,
     name,
     batch,
-    profession,
+    jobTitle,
     location,
     education,
     degree,
@@ -19,7 +43,7 @@ const AlumniDetail = () => {
     qualification,
     passedOut,
     skills
-  } = state.alumni;
+  } = alumni;
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative', background: '#f7f9fb' }}>
@@ -53,20 +77,33 @@ const AlumniDetail = () => {
           minHeight: '100vh'
         }}
       >
-        <img src={img} alt={name} className="alumni-img-large" />
+        {img && <img src={img} alt={name} className="alumni-img-large" />}
         <h2>{name}</h2>
-        <p><strong>Profession:</strong> {profession}</p>
+        <p><strong>Job Title:</strong> {jobTitle}</p>
         <p><strong>Education:</strong> {education}</p>
         <p><strong>Degree:</strong> {degree}</p>
         <p><strong>Experience:</strong> {experience}</p>
-        <p><strong>Qualification:</strong> {qualification}</p>
-        <p><strong>Batch:</strong> {batch}</p>
-        <p><strong>Passed Out Year:</strong> {passedOut}</p>
-        <p><strong>Skills:</strong> {skills && skills.join(', ')}</p>
+        <p><strong>Batch Year:</strong> {passedOut}</p>
+        <p><strong>Skills:</strong> {skills && Array.isArray(skills) ? skills.join(', ') : skills}</p>
         <p><strong>Location:</strong> {location}</p>
         <div className="alumni-card-actions">
           <button className="connect-btn">Connect</button>
-          <button className="message-btn" onClick={() => navigate(`/student/dashboard/chats/${state.alumni.id}`, { state: { alumni: state.alumni } })}>Message</button>
+          <button
+            className="message-btn"
+            onClick={() =>
+              navigate(`/student/dashboard/chats/${alumni._id}`, {
+                state: {
+                  selectedChatUser: {
+                    id: alumni._id,
+                    name: alumni.name,
+                    avatar: alumni.avatar
+                  }
+                }
+              })
+            }
+          >
+            Message
+          </button>
         </div>
       </div>
     </div>
