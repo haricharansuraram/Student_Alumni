@@ -19,7 +19,10 @@ import EchoChamberSection from './components/EchoChamberSection';
 import JobsInternshipsPortal from './pages/JobsInternshipsPortal';
 // In routes.jsx
 import SkillProgressionTree from './pages/SkillProgressionTree';
-
+import MentorshipProgram from './pages/MentorshipProgram';
+import BlogsSuccessStories from './pages/BlogsSuccessStories';
+import SkillEndorsements from './pages/SkillEndorsements';
+import GamificationBadges from './pages/GamificationBadges';
 
 function App() {
   return (
@@ -35,12 +38,23 @@ function App() {
 
       {/* Student dashboard with nested routes */}
       <Route path="/student/dashboard" element={<StudentDashboard />}>
+        <Route path="mentorship" element={<MentorshipProgram />} />
+        // In your routes file
+import BlogsSuccessStories from './pages/BlogsSuccessStories';
+import Announcements from './pages/Announcements';
+import SkillEndorsements from './pages/SkillEndorsements';
+import GamificationBadges from './pages/GamificationBadges';
+
+<Route path="/student/dashboard/blogs" element={<BlogsSuccessStories />} />
+<Route path="/student/dashboard/skill-endorsements" element={<SkillEndorsements />} />
+<Route path="/student/dashboard/gamification" element={<GamificationBadges />} />
         <Route path="alumni" element={<AlumniPage />} />
         <Route path="jobs-internships" element={<JobsInternshipsPortal />} />
         <Route path="connections" element={<MyConnections />} />
         <Route path="chats" element={<ChatsList />} />
         <Route path="chats/:id" element={<EchoChamberSection />} />
         <Route path="chats/:userId" element={<EchoChamberSection />} />
+        <Route path="/student/dashboard/MentorshipProgram" element={<MentorshipProgram />} />
         <Route path="profile" element={<ProfileCard />} />
       </Route>
       <Route path="/directory" element={<AlumniDirectory />} />

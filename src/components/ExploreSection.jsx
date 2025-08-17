@@ -81,43 +81,43 @@ const ExploreSection = ({ setSelectedTab }) => {
       {/* Main Explore Grid */}
       <div className="explore-grid-container">
         <div className="explore-grid">
-          <div className="explore-item" onClick={() => handleNavigation('jobs')}>
-            <FaBriefcase className="explore-icon" />
-            <h3>Job & Internship Portal</h3>
-            <p>Find your next career step, posted by alumni.</p>
-            <button className="explore-item-button">Go to Jobs</button>
-          </div>
-          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/mentorship')}>
-            <FaGraduationCap className="explore-icon" />
-            <h3>Mentorship Program</h3>
-            <p>Accelerate your growth with experienced alumni mentors.</p>
-            <button className="explore-item-button">Find Mentors</button>
-          </div>
-          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/blogs')}>
-            <FaBook className="explore-icon" />
-            <h3>Blogs & Success Stories</h3>
-            <p>Read inspiring journeys and insights from our community.</p>
-            <button className="explore-item-button">Read Blogs</button>
-          </div>
-          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/announcements')}>
-            <FaBullhorn className="explore-icon" />
-            <h3>Announcements</h3>
-            <p>Stay updated with the latest institutional news and updates.</p>
-            <button className="explore-item-button">View Announcements</button>
-          </div>
-          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/skill-endorsements')}>
-            <FaStar className="explore-icon" />
-            <h3>Skill Endorsements</h3>
-            <p>Get recognized for your expertise by alumni and peers.</p>
-            <button className="explore-item-button">Endorse Skills</button>
-          </div>
-          <div className="explore-item" onClick={() => handleNavigation('/student/dashboard/gamification')}>
-            <FaAward className="explore-icon" />
-            <h3>Gamification & Badges</h3>
-            <p>Earn recognition and climb leaderboards for your contributions.</p>
-            <button className="explore-item-button">View Badges</button>
-          </div>
-        </div>
+  <div className="explore-item" onClick={() => handleNavigation('jobs')}>
+    <FaBriefcase className="explore-icon" />
+    <h3>Job & Internship Portal</h3>
+    <p>Find your next career step, posted by alumni.</p>
+    <button className="explore-item-button">Go to Jobs</button>
+  </div>
+  <div className="explore-item" onClick={() => handleNavigation('mentorship')}>
+    <FaRocket className="explore-icon" />
+    <h3>Mentorship Program</h3>
+    <p>Accelerate your growth with experienced alumni mentors.</p>
+    <button className="explore-item-button">Explore Mentorship</button>
+  </div>
+  <div className="explore-item" onClick={() => handleNavigation('blogs')}>
+    <FaBook className="explore-icon" />
+    <h3>Blogs & Success Stories</h3>
+    <p>Read inspiring journeys and insights from our community.</p>
+    <button className="explore-item-button">Read Blogs</button>
+  </div>
+  {/* <div className="explore-item" onClick={() => handleNavigation('announcements')}>
+    <FaBullhorn className="explore-icon" />
+    <h3>Announcements</h3>
+    <p>Stay updated with the latest institutional news and updates.</p>
+    <button className="explore-item-button">View Announcements</button>
+  </div> */}
+  <div className="explore-item" onClick={() => handleNavigation('skillEndorsements')}>
+    <FaStar className="explore-icon" />
+    <h3>Skill Endorsements</h3>
+    <p>Get recognized for your expertise by alumni and peers.</p>
+    <button className="explore-item-button">Endorse Skills</button>
+  </div>
+  <div className="explore-item" onClick={() => handleNavigation('gamification')}>
+    <FaAward className="explore-icon" />
+    <h3>Gamification & Badges</h3>
+    <p>Earn recognition and climb leaderboards for your contributions.</p>
+    <button className="explore-item-button">View Badges</button>
+  </div>
+</div>
       </div>
     </div>
   );

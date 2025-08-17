@@ -1,0 +1,144 @@
+.skill-page-container {
+  max-width: 700px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skill-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-description {
+  color: #444;
+  font-size: 1.08rem;
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.skill-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.skill-request-section {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.skill-label {
+  font-size: 1rem;
+  color: #1976d2;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.skill-select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.skill-request-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.skill-request-btn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.skill-request-btn:hover:enabled {
+  background: #1565c0;
+}
+
+.skill-notification {
+  margin-top: 8px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.skill-requests-list {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 12px;
+}
+
+.skill-requests-title {
+  font-size: 1.1rem;
+  color: #1976d2;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.skill-no-requests {
+  color: #888;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.skill-requests-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-request-item {
+  background: #f5f5f5;
+  color: #1976d2;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .skill-page-container {
+    padding: 16px 4px;
+  }
+  .skill-request-section,
+  .skill-requests-list {
+    max-width: 100%;
+  }
+}

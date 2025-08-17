@@ -12,8 +12,11 @@ import MyQuadSection from '../components/MyQuadSection';
 import EchoChamberSection from '../components/EchoChamberSection';
 import AscensionPathSection from '../components/AscensionPathSection';
 import JobsInternshipsPortal from '../pages/JobsInternshipsPortal';
+import MentorshipProgram from '../pages/MentorshipProgram';
 import userAvatarImage from '../assets/user1.jpeg';
-
+import BlogsSuccessStories from '../pages/BlogsSuccessStories';
+import SkillEndorsements from './SkillEndorsements';
+import GamificationBadges from './GamificationBadges';
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -56,10 +59,18 @@ const StudentDashboard = () => {
         return <EchoChamberSection selectedChatUser={selectedChatUser} />;
       case 'jobs':
         return <JobsInternshipsPortal />;
+      case 'mentorship':
+        return <MentorshipProgram />;
       case 'explore':
         return <ExploreSection setSelectedTab={setSelectedTab} />;
       case 'connections':
         return <MyQuadSection />;
+       case 'blogs':
+      return <BlogsSuccessStories />;
+    case 'skillEndorsements':
+      return <SkillEndorsements />;
+    case 'gamification':
+      return <GamificationBadges />;
       case 'profile':
         return <AscensionPathSection />;
       default:
