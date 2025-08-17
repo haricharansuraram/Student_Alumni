@@ -61,9 +61,11 @@ const AlumniDetail = () => {
         location,
         education,
         degree,
+        company,
         experience,
         qualification,
         passedOut,
+        Email,
         skills
     } = alumni;
 
@@ -86,9 +88,9 @@ const AlumniDetail = () => {
                 <p className="alumni-job-title">{jobTitle}</p>
                 <p className="alumni-location"><strong>Location:</strong> {location}</p>
                 <div className="alumni-info-grid">
-                    <p><strong>Batch:</strong> {batch}</p>
+                    <p><strong>Company:</strong> {company}</p>
                     <p><strong>Education:</strong> {education}</p>
-                    <p><strong>Degree:</strong> {degree}</p>
+                    <p><strong>Email:</strong>{Email}</p>
                     <p><strong>Experience:</strong> {experience}</p>
                     <p><strong>Qualification:</strong> {qualification}</p>
                     <p><strong>Passed Out:</strong> {passedOut}</p>
