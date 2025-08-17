@@ -23,6 +23,7 @@ import MentorshipProgram from './pages/MentorshipProgram';
 import BlogsSuccessStories from './pages/BlogsSuccessStories';
 import SkillEndorsements from './pages/SkillEndorsements';
 import GamificationBadges from './pages/GamificationBadges';
+import ConnectionProfile from './components/ConnectionProfile';
 
 function App() {
   return (
@@ -35,15 +36,11 @@ function App() {
       <Route path="/login/alumni" element={<AlumniLogin />} />
       <Route path="/login/admin" element={<AdminLogin />} />
       <Route path="/directory" element={<AlumniDirectory />} />
-
+<Route path="/connections/profile/:id" element={<ConnectionProfile />} />
       {/* Student dashboard with nested routes */}
       <Route path="/student/dashboard" element={<StudentDashboard />}>
         <Route path="mentorship" element={<MentorshipProgram />} />
-        // In your routes file
-import BlogsSuccessStories from './pages/BlogsSuccessStories';
-import Announcements from './pages/Announcements';
-import SkillEndorsements from './pages/SkillEndorsements';
-import GamificationBadges from './pages/GamificationBadges';
+       
 
 <Route path="/student/dashboard/blogs" element={<BlogsSuccessStories />} />
 <Route path="/student/dashboard/skill-endorsements" element={<SkillEndorsements />} />
