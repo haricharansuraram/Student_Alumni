@@ -109,8 +109,7 @@ const EchoChamberSection = ({ selectedChatUser }) => {
 
   return (
     <div className="echo-chamber-container dashboard-section-card full-width-card">
-      <h2 className="section-title">Echo Chamber (Chats)</h2>
-      <p className="section-description">Real-time conversations with your connections. Connect, collaborate, and communicate seamlessly.</p>
+      <h2 className="section-title">Chats</h2>
 
 
       <div className="chat-interface">

@@ -5,13 +5,13 @@ import {
   FaSignOutAlt, FaCog
 } from 'react-icons/fa';
 import '../styles/StudentDashboard.css';
-
+import { Outlet } from 'react-router-dom';
 import ExploreSection from '../components/ExploreSection';
 import AlumniForgeSection from '../components/AlumniForgeSection';
 import MyQuadSection from '../components/MyQuadSection';
 import EchoChamberSection from '../components/EchoChamberSection';
 import AscensionPathSection from '../components/AscensionPathSection';
-
+import JobsInternshipsPortal from '../pages/JobsInternshipsPortal';
 import userAvatarImage from '../assets/user1.jpeg';
 
 const StudentDashboard = () => {
@@ -54,8 +54,10 @@ const StudentDashboard = () => {
         );
       case 'chats':
         return <EchoChamberSection selectedChatUser={selectedChatUser} />;
+      case 'jobs':
+        return <JobsInternshipsPortal />;
       case 'explore':
-        return <ExploreSection />;
+        return <ExploreSection setSelectedTab={setSelectedTab} />;
       case 'connections':
         return <MyQuadSection />;
       case 'profile':
@@ -138,6 +140,7 @@ const StudentDashboard = () => {
           <span>Profile</span>
         </button>
       </footer>
+      
     </div>
   );
 };

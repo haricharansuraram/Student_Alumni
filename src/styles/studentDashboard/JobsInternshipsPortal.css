@@ -1,0 +1,122 @@
+.jobs-portal-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 900px;
+  margin: 40px auto 32px auto;
+  min-height: 500px;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #1976d2;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.jobs-search-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.jobs-search-filters input {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  width: 220px;
+}
+
+.jobs-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.job-card {
+  background: #f7f9fb;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.job-title {
+  font-size: 1.25rem;
+  color: #1976d2;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.job-company {
+  font-weight: 500;
+  color: #333;
+}
+
+.job-location {
+  color: #1976d2;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.job-type {
+  font-size: 0.98rem;
+  color: #555;
+}
+
+.job-description {
+  color: #444;
+  margin: 0.5rem 0;
+}
+
+.job-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 0.7rem;
+}
+
+.apply-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.apply-btn:hover {
+  background: #1251a3;
+}
+
+@media (max-width: 700px) {
+  .jobs-portal-container {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .jobs-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
