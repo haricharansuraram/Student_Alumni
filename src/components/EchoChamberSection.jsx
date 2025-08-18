@@ -37,24 +37,21 @@ const mockConversations = [
   }
 ];
 
-const EchoChamberSection = ({ selectedChatUser }) => {
+const EchoChamberSection = ({ selectedChatUser, onNavigate }) => {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef(null);
 
-  // Always load mock chats for demo/testing
   useEffect(() => {
     setConversations(mockConversations);
-    localStorage.removeItem('chats'); // Remove this line if you want to keep localStorage
+    localStorage.removeItem('chats');
   }, []);
 
-  // Save to localStorage whenever conversations change (optional)
   useEffect(() => {
     localStorage.setItem('chats', JSON.stringify(conversations));
   }, [conversations]);
 
-  // Select chat by selectedChatUser or default to first
   useEffect(() => {
     if (selectedChatUser) {
       const conversation = conversations.find(conv => conv.participant.id === selectedChatUser.id);
@@ -108,68 +105,75 @@ const EchoChamberSection = ({ selectedChatUser }) => {
   };
 
   return (
-    <div className="echo-chamber-container dashboard-section-card full-width-card">
-      <h2 className="section-title">Chats</h2>
-
-
-      <div className="chat-interface">
-        <div className="chat-list-panel">
-          <div className="chat-list-header">
-            <h4>Conversations</h4>
-            <button className="new-chat-button" onClick={() => alert('Start a new chat!')}><FaPlus /></button>
-          </div>
-          <div className="chat-search">
-            <input type="text" placeholder="Search chats..." />
-            <FaSearch className="search-icon" />
-          </div>
-          <div className="conversations-scroll-area">
-            {conversations.map(conv => (
-              <div
-                key={conv.id}
-                className={`chat-preview ${selectedConversation?.id === conv.id ? 'active' : ''}`}
-                onClick={() => setSelectedConversation(conv)}
-              >
-                <FaUserCircle className="chat-avatar" />
-                <div className="chat-info">
-                  <h5>{conv.participant.name}</h5>
-                  <p className="last-message">{conv.lastMessage}</p>
-                  <span className="timestamp">{conv.timestamp}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="chat-window-panel">
-          {selectedConversation ? (
-            <>
-              <div className="chat-header">
-                <FaUserCircle className="chat-avatar" />
-                <h4>{selectedConversation.participant.name}</h4>
-              </div>
-              <div className="chat-messages-area">
-                {selectedConversation.messages.map(msg => (
-                  <div key={msg.id} className={`message ${msg.type}`}>
-                    {msg.text}
-                  </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
-              <form className="chat-input-area" onSubmit={handleSendMessage}>
-                <input
-                  type="text"
-                  placeholder="Type a message..."
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <button type="submit"><FaPaperPlane /> Send</button>
-              </form>
-            </>
-          ) : (
-            <div className="no-conversation-selected">
-              Select a conversation to start chatting.
+    <div className="echo-chamber-page">
+      
+      <div className="echo-chamber-container dashboard-section-card full-width-card">
+        <h2 className="section-title">Chats</h2>
+        <div className="chat-interface">
+          <button
+        className="chat-profile-back-btn"
+        onClick={() => onNavigate ? onNavigate('alumni') : null}
+      >
+        ← Back
+      </button>
+          <div className="chat-list-panel">
+            <div className="chat-list-header">
+              <h4>Conversations</h4>
+              <button className="new-chat-button" onClick={() => alert('Start a new chat!')}><FaPlus /></button>
             </div>
-          )}
+            <div className="chat-search">
+              <input type="text" placeholder="Search chats..." />
+              <FaSearch className="search-icon" />
+            </div>
+            <div className="conversations-scroll-area">
+              {conversations.map(conv => (
+                <div
+                  key={conv.id}
+                  className={`chat-preview ${selectedConversation?.id === conv.id ? 'active' : ''}`}
+                  onClick={() => setSelectedConversation(conv)}
+                >
+                  <FaUserCircle className="chat-avatar" />
+                  <div className="chat-info">
+                    <h5>{conv.participant.name}</h5>
+                    <p className="last-message">{conv.lastMessage}</p>
+                    <span className="timestamp">{conv.timestamp}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="chat-window-panel">
+            {selectedConversation ? (
+              <>
+                <div className="chat-header">
+                  <FaUserCircle className="chat-avatar" />
+                  <h4>{selectedConversation.participant.name}</h4>
+                </div>
+                <div className="chat-messages-area">
+                  {selectedConversation.messages.map(msg => (
+                    <div key={msg.id} className={`message ${msg.type}`}>
+                      {msg.text}
+                    </div>
+                  ))}
+                  <div ref={messagesEndRef} />
+                </div>
+                <form className="chat-input-area" onSubmit={handleSendMessage}>
+                  <input
+                    type="text"
+                    placeholder="Type a message..."
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                  />
+                  <button type="submit"><FaPaperPlane /> Send</button>
+                </form>
+              </>
+            ) : (
+              <div className="no-conversation-selected">
+                Select a conversation to start chatting.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

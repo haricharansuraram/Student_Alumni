@@ -18,11 +18,17 @@ const leaderboardData = [
   { rank: 5, name: 'Anjali Mehta', points: 850, badges: 3 }
 ];
 
-const GamificationBadges = () => {
+const GamificationBadges = ({onNavigate}) => {
   const [badges] = useState(initialBadges);
 
   return (
     <div className="gamification-page-container dashboard-section-card">
+      <button
+        className="profile-back-btn"
+        onClick={() => onNavigate && onNavigate('explore')}
+      >
+        ← Back
+      </button>
       <h2 className="gamification-title"><FaAward /> Gamification & Badges</h2>
       <p className="gamification-description">
         Earn recognition and climb leaderboards for your contributions. Collect badges and see your achievements!

@@ -99,7 +99,7 @@ const initialBlogs = [
   }
 ];
 
-const BlogsSuccessStories = () => {
+const BlogsSuccessStories = ({onNavigate}) => {
   const [blogs, setBlogs] = useState(initialBlogs);
   const [commentInputs, setCommentInputs] = useState({});
 
@@ -139,6 +139,12 @@ const BlogsSuccessStories = () => {
 
   return (
     <div className="blogs-page-container dashboard-section-card">
+      <button
+        className="profile-back-btn"
+        onClick={() => onNavigate && onNavigate('explore')}
+      >
+        ← Back
+      </button>
        <h2 className="blog-title-description-head">
         <faBook /> Blogs & Success Stories
       </h2>

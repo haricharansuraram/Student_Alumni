@@ -9,7 +9,7 @@ const FaUserCircle = ({ className }) => (
   </div>
 );
 
-const MyQuadSection = () => {
+const MyQuadSection = ({onNavigate}) => {
   const [connections, setConnections] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [requests, setRequests] = useState([]);
@@ -41,6 +41,9 @@ const MyQuadSection = () => {
 
   const handleProfileRedirect = (id) => {
     navigate(`/connections/profile/${id}`);
+     if (onNavigate) {
+      onNavigate('connections-profile', id);
+    }
   };
 
   const handleRequestAction = (id, action) => {

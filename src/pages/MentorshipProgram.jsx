@@ -53,7 +53,7 @@ const fallbackAlumni = [
   }
 ];
 
-const MentorshipProgram = ({ alumniList }) => {
+const MentorshipProgram = ({ alumniList , onNavigate }) => {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -92,6 +92,12 @@ const MentorshipProgram = ({ alumniList }) => {
 
   return (
     <div className="mentorship-program-container dashboard-section-card">
+      <button
+        className="profile-back-btn"
+        onClick={() => onNavigate && onNavigate('explore')}
+      >
+        ← Back
+      </button>
       <h2 className="section-title"><FaRocket /> Mentorship Program</h2>
       <p className="section-description">
         Accelerate your growth with experienced alumni mentors. 

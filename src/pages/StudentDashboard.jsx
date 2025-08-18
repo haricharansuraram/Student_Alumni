@@ -17,6 +17,8 @@ import userAvatarImage from '../assets/user1.jpeg';
 import BlogsSuccessStories from '../pages/BlogsSuccessStories';
 import SkillEndorsements from './SkillEndorsements';
 import GamificationBadges from './GamificationBadges';
+import ConnectionProfile from '../components/ConnectionProfile';
+
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -56,21 +58,25 @@ const StudentDashboard = () => {
           />
         );
       case 'chats':
-        return <EchoChamberSection selectedChatUser={selectedChatUser} />;
+        return <EchoChamberSection selectedChatUser={selectedChatUser}
+        onNavigate={setSelectedTab} />;
       case 'jobs':
-        return <JobsInternshipsPortal />;
+        return <JobsInternshipsPortal onNavigate={setSelectedTab} />;
       case 'mentorship':
-        return <MentorshipProgram />;
+        return <MentorshipProgram onNavigate={setSelectedTab} />;
       case 'explore':
         return <ExploreSection setSelectedTab={setSelectedTab} />;
       case 'connections':
-        return <MyQuadSection />;
-       case 'blogs':
-      return <BlogsSuccessStories />;
-    case 'skillEndorsements':
-      return <SkillEndorsements />;
-    case 'gamification':
-      return <GamificationBadges />;
+        return <MyQuadSection onNavigate={(tab) => { setSelectedTab(tab); }} />;
+      case 'connections-profile':
+        return <ConnectionProfile onNavigate={setSelectedTab} />;
+      case 'blogs':
+        return <BlogsSuccessStories onNavigate={setSelectedTab}/>;
+      
+      case 'skillEndorsements':
+        return <SkillEndorsements onNavigate={setSelectedTab}/>;
+      case 'gamification':
+        return <GamificationBadges onNavigate={setSelectedTab}/>;
       case 'profile':
         return <AscensionPathSection />;
       default:

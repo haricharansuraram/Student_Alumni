@@ -14,7 +14,7 @@ const skillsList = [
   'Leadership'
 ];
 
-const SkillEndorsements = () => {
+const SkillEndorsements = ({onNavigate}) => {
   const [selectedSkill, setSelectedSkill] = useState('');
   const [endorsementRequests, setEndorsementRequests] = useState([]);
   const [requestSent, setRequestSent] = useState(false);
@@ -30,6 +30,12 @@ const SkillEndorsements = () => {
 
   return (
     <div className="skill-page-container dashboard-section-card">
+      <button
+        className="profile-back-btn"
+        onClick={() => onNavigate && onNavigate('explore')}
+      >
+        ← Back
+      </button>
       <h2 className="skill-title"><span role="img" aria-label="star">⭐</span> Skill Endorsements</h2>
       <p className="skill-description">
         Get recognized for your expertise by alumni and peers. Select a skill below and request endorsements from your network!

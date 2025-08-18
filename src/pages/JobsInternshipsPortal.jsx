@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaBriefcase, FaMapMarkerAlt, FaUser } from 'react-icons/fa';
 import '../styles/studentDashboard/JobsInternshipsPortal.css';
+import { useNavigate } from 'react-router-dom';
 
 // Mock data for jobs/internships from different sectors
 const MOCK_JOBS = [
@@ -139,7 +140,7 @@ const sectorOptions = [
   'Media'
 ];
 
-const JobsInternshipsPortal = () => {
+const JobsInternshipsPortal = ({ onNavigate }) => {
   const [jobs, setJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
@@ -158,9 +159,15 @@ const JobsInternshipsPortal = () => {
       setLoading(false);
     }, 400);
   }, [searchTerm, locationFilter, sectorFilter]);
-
+  const navigate = useNavigate();
   return (
     <div className="jobs-portal-container dashboard-section-card">
+      <button
+        className="profile-back-btn"
+        onClick={() => onNavigate && onNavigate('explore')}
+      >
+        ← Back
+      </button>
       <h2 className="section-title">Jobs & Internships Portal</h2>
       <p className="section-description">
         Browse jobs and internships posted by our alumni. Find your next opportunity!
