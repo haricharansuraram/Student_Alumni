@@ -115,9 +115,7 @@ switch (userData.user.role.toLowerCase()) {
     alert('Forgot Password functionality is under development.');
   };
 
-  const handleGetActivationLink = () => {
-    alert('Get Activation Link functionality is under development.');
-  };
+
 
   return (
     <div className="login-container">
@@ -181,14 +179,7 @@ switch (userData.user.role.toLowerCase()) {
               >
                 Forgot Password?
               </button>
-              <button
-                type="button"
-                className="link-button"
-                onClick={() => alert('Get Activation Link functionality is under development.')}
-                disabled={isLoading}
-              >
-                Get Activation Link
-              </button>
+              
             </div>
             <button
               type="submit"

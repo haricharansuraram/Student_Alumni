@@ -1,383 +1,470 @@
-/* src/styles/studentDashboard/MyQuadSection.css */
-
-/* Inherits .dashboard-section-card, .section-title, .section-description from StudentDashboard.css */
-
-.connections-search-bar {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.connections-search-bar input {
-  flex-grow: 1;
-  padding: 12px 15px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-  background: white;
-  color: #2d3748;
-  max-width: 350px; /* Limit search input width */
-  box-sizing: border-box;
-}
-
-.connections-search-bar input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.connections-search-bar button {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.connections-search-bar button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
-}
-
-.connections-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for connections */
-  gap: 25px;
-  margin-bottom: 40px;
-}
-
-.connection-card {
-  background-color: #f8fafd;
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+/* Container and Heading */
+.connections-container {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
-.connection-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border-color: #667eea;
-}
-
-.user-circle-avatar { /* Reusable avatar style */
-  font-size: 3.5rem; /* Larger icon for profiles */
-  color: #a0aec0;
-  border-radius: 50%;
-  background-color: #edf2f7;
-  width: 80px;
-  height: 80px;
+.connections-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-  border: 3px solid #cbd5e0;
-  flex-shrink: 0;
+  gap: 10px;
 }
 
-.connection-avatar {
-  /* Inherits from .user-circle-avatar */
+.connections-description {
+  color: #444;
+  font-size: 1.08rem;
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
 }
 
-.connection-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #2d3748;
+/* Requests */
+.connections-requests-section {
+  width: 100%;
+  margin-bottom: 24px;
 }
 
-.connection-meta {
-  font-size: 0.9rem;
-  color: #718096;
+.connections-requests-title {
+  font-size: 1.1rem;
+  color: #1976d2;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.connections-requests-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.connections-request-item {
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 10px 16px;
   margin-bottom: 10px;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #e3e8ee;
 }
 
-.connection-bio {
+.connections-request-name {
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.connections-request-meta {
+  color: #388e3c;
+  font-size: 0.98rem;
+}
+
+.connections-request-message {
+  color: #444;
+  font-size: 0.98rem;
+}
+
+.connections-request-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.connections-accept-btn {
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.connections-reject-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.connections-accept-btn:hover {
+  background: #388e3c;
+}
+
+.connections-reject-btn:hover {
+  background: #b71c1c;
+}
+
+.connections-no-requests {
+  color: #888;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* ...existing code... */
+
+/* Search Bar with icon inside input */
+.connections-search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+  position: relative;
+}
+
+.connections-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 12px 16px 12px 40px; /* left padding for icon */
+  border: 2px solid #e2e8f0;
+  border-radius: 50px;
+  font-size: 1rem;
+  background: #fff;
+  color: #2d3748;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.connections-search-input::placeholder {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.connections-search-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15);
+  background: #f9faff;
+  transform: translateY(-1px);
+}
+
+/* Search icon inside input */
+.connections-search-bar::before {
+  content: "🔍";
+  position: absolute;
+  left: calc(50% - 200px); /* aligns icon inside input for 420px width */
+  top: 64%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #a0aec0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Connections List - single line style */
+.single-line-connection {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  background: #fafbfc;
+  border-radius: 6px;
+  border: 1px solid #e3e8ee;
+  margin-bottom: 8px;
   font-size: 0.85rem;
-  color: #4a5568;
-  margin-bottom: 15px;
-  line-height: 1.4;
-  flex-grow: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.single-line-connection .connections-avatar {
+  font-size: 1.5rem;
+  color: #1976d2;
+}
+
+.single-line-connection .connections-name-btn {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  margin-right: 4px;
+  transition: text-decoration 0.2s;
+  position: relative;
+  top:-11px;
+}
+
+.single-line-connection .connections-name-btn:hover {
+  text-decoration: underline;
+}
+
+.single-line-connection .connections-meta-type,
+.single-line-connection .connections-meta-job {
+  font-size: 1rem;
+  color: #388e3c;
+  font-weight: 500;
+  margin-right: 8px;
+  min-width: 170px;
+  max-width: 180px;
+  display: inline-block;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.connection-card-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
+.single-line-connection .connections-meta-job {
+  color: #444;
+  font-weight: 400;
 }
 
-.message-button, .view-profile-button {
-  background: linear-gradient(135deg, #3b82f6, #2563eb); /* Blue for message */
-  color: white;
+.single-line-connection .connections-message-btn {
+  background: #1976d2;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  border-radius: 6px;
+  padding: 6px 10px; /* decreased width */
+  font-size: 0.92rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-grow: 1;
-  min-width: 120px;
+  transition: background 0.2s;
+  margin-left: auto;
+  min-width: 80px;
+  max-width: 100px;
 }
 
-.view-profile-button {
-  background: #f0f2f5;
-  color: #4a5568;
-  border: 1px solid #cbd5e0;
+.single-line-connection .connections-message-btn:hover {
+  background: #1565c0;
 }
 
-.message-button:hover, .view-profile-button:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.no-results-message {
-  text-align: center;
-  color: #718096;
-  font-size: 1.1rem;
-  padding: 30px;
+/* ...existing code for requests, features, avatar, responsive... */
+/* Connections List */
+.connections-list-section {
   width: 100%;
+  margin-bottom: 24px;
 }
 
-.quad-features-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-  margin-top: 40px;
-}
-
-.connections-feature-card {
-  background: linear-gradient(135deg, #fefefe, #fcfcfc);
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.connections-list-title {
+  font-size: 1.1rem;
+  color: #1976d2;
+  margin-bottom: 8px;
   text-align: left;
 }
 
-.connections-feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border-color: #667eea;
+.connections-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.feature-card-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #2d3748;
+.connections-list-item,
+.single-line-connection {
+  background: #fafbfc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  border: 1px solid #e3e8ee;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
 
-.feature-card-title svg {
-  font-size: 1.4rem;
-  color: #667eea;
+.connections-list-item:hover,
+.single-line-connection:hover {
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.10);
+  border-color: #bcdffb;
 }
 
-.connections-feature-card p {
-  font-size: 0.9rem;
-  color: #718096;
-  margin-bottom: 20px;
-  line-height: 1.4;
-  flex-grow: 1;
+.connections-avatar {
+  font-size: 1.5rem;
+  color: #1976d2;
 }
 
-.feature-card-button {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+.connections-name-btn {
+  background: none;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 0.9rem;
+  color: #1976d2;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: flex-end;
+  text-align: left;
+  padding: 0;
+  margin-right: 8px;
+  transition: text-decoration 0.2s;
 }
 
-.feature-card-button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+.connections-name-btn:hover {
+  text-decoration: underline;
 }
 
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .connections-search-bar input {
-    max-width: 280px;
-  }
-  .connections-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  .connection-card {
-    padding: 20px;
-  }
-  .connection-avatar {
-    font-size: 3rem;
-    width: 70px;
-    height: 70px;
-  }
-  .connection-card h3 {
-    font-size: 1.1rem;
-  }
-  .connection-meta, .connection-bio {
-    font-size: 0.8rem;
-  }
-  .quad-features-section {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .connections-feature-card {
-    padding: 20px;
-  }
-  .feature-card-title {
-    font-size: 1.1rem;
-  }
-  .connections-feature-card p {
-    font-size: 0.85rem;
-  }
-  .feature-card-button {
-    font-size: 0.85rem;
-    padding: 8px 15px;
-  }
+.connections-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
 }
 
-@media (max-width: 768px) {
-  .connections-search-bar {
+.connections-meta-type {
+  color: #388e3c;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.connections-meta-job {
+  color: #444;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+.connections-bio {
+  color: #888;
+  font-size: 0.85rem;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.connections-message-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: auto;
+}
+
+.connections-message-btn:hover {
+  background: #1565c0;
+}
+
+.connections-no-results {
+  color: #888;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* Features Section */
+.connections-features-section {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.connections-feature-card {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 18px 20px;
+  max-width: 320px;
+  min-width: 220px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.connections-feature-title {
+  font-size: 1.08rem;
+  color: #1976d2;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.connections-feature-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.connections-feature-btn:hover {
+  background: #1565c0;
+}
+
+/* Avatar */
+.user-circle-avatar {
+  font-size: 2rem;
+  color: #a0aec0;
+  border-radius: 50%;
+  background-color: #edf2f7;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  border: 2px solid #cbd5e0;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .connections-container {
+    padding: 16px 4px;
+  }
+  .connections-features-section {
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    gap: 12px;
   }
-  .connections-search-bar input,
-  .connections-search-bar button {
-    max-width: 100%;
+  .connections-list-item,
+  .single-line-connection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 8px;
   }
-  .connections-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  .connection-card {
-    padding: 18px;
-  }
-  .connection-avatar {
-    font-size: 2.8rem;
-    width: 60px;
-    height: 60px;
-  }
-  .connection-card h3 {
-    font-size: 1.05rem;
-  }
-  .quad-features-section {
-    gap: 15px;
-  }
-  .connections-feature-card {
-    padding: 18px;
-  }
-  .feature-card-title {
-    font-size: 1rem;
-  }
-  .connections-feature-card p {
-    font-size: 0.8rem;
-  }
-  .feature-card-button {
-    font-size: 0.8rem;
-    padding: 8px 15px;
+  .user-circle-avatar {
+    margin-bottom: 6px;
+    margin-right: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .connections-search-bar {
-    gap: 8px;
-  }
-  .connections-search-bar input,
-  .connections-search-bar button {
-    font-size: 0.85rem;
-    padding: 10px 12px;
-  }
-  .connections-grid {
-    gap: 10px;
-  }
-  .connection-card {
-    padding: 15px;
-  }
-  .connection-avatar {
-    font-size: 2.5rem;
-    width: 50px;
-    height: 50px;
-  }
-  .connection-card h3 {
-    font-size: 1rem;
-  }
-  .connection-meta, .connection-bio {
-    font-size: 0.75rem;
-  }
-  .connection-card-actions {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .message-button, .view-profile-button {
-    font-size: 0.8rem;
-    padding: 8px 12px;
-    min-width: unset;
-  }
-  .quad-features-section {
-    gap: 10px;
-  }
-  .connections-feature-card {
-    padding: 15px;
-  }
-  .feature-card-title {
-    font-size: 0.95rem;
-    gap: 8px;
-  }
-  .feature-card-title svg {
-    font-size: 1.1rem;
-  }
-  .connections-feature-card p {
-    font-size: 0.75rem;
-    margin-bottom: 15px;
-  }
-  .feature-card-button {
-    font-size: 0.75rem;
-    padding: 8px 15px;
-  }
+
+/* Notification top right */
+.connections-notification-top {
+  position: fixed;
+  top: 24px;
+  right: 32px;
+  z-index: 9999;
+  background: #1976d2;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(25,118,210,0.12);
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px);}
+  to { opacity: 1; transform: translateY(0);}
 }

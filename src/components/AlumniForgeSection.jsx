@@ -133,7 +133,7 @@ const AlumniForgeSection = ({ onMessageClick }) => {
       ) : (
         !loading && <p className="no-results-message">No alumni found matching your criteria.</p>
       )}
-      <div className="alumni-features-section">
+      {/* <div className="alumni-features-section">
         <div className="alumni-feature-card">
           <h3 className="feature-card-title">Knowledge Capsules <FaLightbulb /></h3>
           <p>Access short, actionable video/audio advice from alumni on specific topics like career tips, industry insights, and skill development.</p>
@@ -144,7 +144,7 @@ const AlumniForgeSection = ({ onMessageClick }) => {
           <p>Visualize common career paths taken by alumni from different university branches and batches. Understand industry trends and opportunities.</p>
           <button className="feature-card-button">View Paths</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

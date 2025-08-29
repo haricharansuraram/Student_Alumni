@@ -5,14 +5,19 @@ import {
   FaSignOutAlt, FaCog
 } from 'react-icons/fa';
 import '../styles/StudentDashboard.css';
-
+import { Outlet } from 'react-router-dom';
 import ExploreSection from '../components/ExploreSection';
 import AlumniForgeSection from '../components/AlumniForgeSection';
 import MyQuadSection from '../components/MyQuadSection';
 import EchoChamberSection from '../components/EchoChamberSection';
 import AscensionPathSection from '../components/AscensionPathSection';
-
+import JobsInternshipsPortal from '../pages/JobsInternshipsPortal';
+import MentorshipProgram from '../pages/MentorshipProgram';
 import userAvatarImage from '../assets/user1.jpeg';
+import BlogsSuccessStories from '../pages/BlogsSuccessStories';
+import SkillEndorsements from './SkillEndorsements';
+import GamificationBadges from './GamificationBadges';
+import ConnectionProfile from '../components/ConnectionProfile';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -53,11 +58,25 @@ const StudentDashboard = () => {
           />
         );
       case 'chats':
-        return <EchoChamberSection selectedChatUser={selectedChatUser} />;
+        return <EchoChamberSection selectedChatUser={selectedChatUser}
+        onNavigate={setSelectedTab} />;
+      case 'jobs':
+        return <JobsInternshipsPortal onNavigate={setSelectedTab} />;
+      case 'mentorship':
+        return <MentorshipProgram onNavigate={setSelectedTab} />;
       case 'explore':
-        return <ExploreSection />;
+        return <ExploreSection setSelectedTab={setSelectedTab} />;
       case 'connections':
-        return <MyQuadSection />;
+        return <MyQuadSection onNavigate={(tab) => { setSelectedTab(tab); }} />;
+      case 'connections-profile':
+        return <ConnectionProfile onNavigate={setSelectedTab} />;
+      case 'blogs':
+        return <BlogsSuccessStories onNavigate={setSelectedTab}/>;
+      
+      case 'skillEndorsements':
+        return <SkillEndorsements onNavigate={setSelectedTab}/>;
+      case 'gamification':
+        return <GamificationBadges onNavigate={setSelectedTab}/>;
       case 'profile':
         return <AscensionPathSection />;
       default:
@@ -138,6 +157,7 @@ const StudentDashboard = () => {
           <span>Profile</span>
         </button>
       </footer>
+      
     </div>
   );
 };
